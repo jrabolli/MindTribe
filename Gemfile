@@ -8,7 +8,6 @@ gem 'rails', '3.1.0'
 gem 'mysql2'
 gem "rake", "0.8.7"
 
-# added by JR
 group :development do
   gem 'rspec-rails', '2.6.1'
   gem 'annotate', '2.4.0'
