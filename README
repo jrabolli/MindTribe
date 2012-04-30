@@ -7,4 +7,15 @@ rspec / cucumber
 ----------------  http://www.ama-assn.org/amednews/2012/04/30/bisa0430.htm ------
 scheduling or appointments reminders
 
-chap 9.4 signing out
+chap 10
+
+
+
+
+
+
+
+
+
+_header
+<% logo = image_tag("MindTribeLogo.png", :alt => "Sample App", :class => "round") %>
