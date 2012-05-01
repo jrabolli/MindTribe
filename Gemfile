@@ -8,6 +8,8 @@ gem 'rails', '3.1.0'
 gem 'mysql2'
 gem "rake", "0.8.7"
 gem 'gravatar_image_tag', '1.0.0.pre2'
+gem 'will_paginate', '3.0.pre2'
+gem 'pg'
 
 group :development do
   gem 'rspec-rails', '2.6.1'
@@ -20,7 +22,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
 end
 
 # Gems used only for assets and not required

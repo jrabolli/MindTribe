@@ -7,7 +7,7 @@ rspec / cucumber
 ----------------  http://www.ama-assn.org/amednews/2012/04/30/bisa0430.htm ------
 scheduling or appointments reminders
 
-chap 10
+chap 10.3.4 partial refactoring 
 
 
 
@@ -19,3 +19,10 @@ chap 10
 
 _header
 <% logo = image_tag("MindTribeLogo.png", :alt => "Sample App", :class => "round") %>
+
+
+appointments
+appointment reminder
+video conf
+docs transfer
+care plan
