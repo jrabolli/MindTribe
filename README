@@ -4,24 +4,19 @@ paperclip vs. attachment_fu
 rspec / cucumber
 
 
-----------------  http://www.ama-assn.org/amednews/2012/04/30/bisa0430.htm ------
-scheduling or appointments reminders
-
-chap 10.3.4 partial refactoring 
 
 
+do 10.3.4 partial refactoring 
+at
 
 
 
 
 
 
+http://www.ama-assn.org/amednews/2012/04/30/bisa0430.htm
 
-_header
-<% logo = image_tag("MindTribeLogo.png", :alt => "Sample App", :class => "round") %>
-
-
-appointments
+scheduling appointments
 appointment reminder
 video conf
 docs transfer
