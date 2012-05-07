@@ -8,7 +8,9 @@ raydash-ruby-on-rails
 
 
 do 10.3.4 partial refactoring 
-at 11.2.2 sample microposts 
+delete user not working
+
+at 11.3.1 access control 
 
 
 assigning admin and provider /UI ?
@@ -23,4 +25,5 @@ scheduling appointments
 appointment reminder
 video conf
 docs transfer
-care plan
+care planReceive health maintenance reminders
+
