@@ -5,13 +5,15 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+
 gem "rake", "0.8.7"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '3.0.pre2'
-gem 'pg'
+gem 'heroku'
 
-group :development do
+
+group :development do	
+  gem 'mysql2'
   gem 'rspec-rails', '2.6.1'
   gem 'annotate', '2.4.0'
 end
@@ -22,7 +24,8 @@ group :test do
 end
 
 group :production do
-gem 'pg'
+	gem 'pg'
+	gem 'thin'
 end
 
 # Gems used only for assets and not required
