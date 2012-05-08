@@ -8,12 +8,12 @@ raydash-ruby-on-rails
 
 
 do 10.3.4 partial refactoring 
-delete user not working
 
-at 11.3.1 access control 
+at 11.3.4 destroying microposts  
 
 
 assigning admin and provider /UI ?
+delete user not working
 
 
 
