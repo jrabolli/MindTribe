@@ -45,12 +45,11 @@ class User < ActiveRecord::Base
             :length => { :within => 6..40 }
             
             
-            
-            
   before_save :encrypt_password
   
   #self.per_page = 8
 
+  
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
   end
@@ -79,8 +78,7 @@ class User < ActiveRecord::Base
   end
   
   def feed
-      # This is preliminary. See Chapter 12 for the full implementation.
-      Micropost.where("user_id = ?", id)
+    Micropost.from_users_followed_by(self)
   end
 
   private

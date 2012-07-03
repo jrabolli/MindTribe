@@ -9,7 +9,7 @@ raydash-ruby-on-rails
 
 do 10.3.4 partial refactoring 
 
-at 12.3
+at 12.4
 
 assigning admin and provider /UI ?
 
@@ -33,3 +33,10 @@ yahoo4
 
 
 pagination not quite right - index.html, custom.css issues
+
+
+
+--
+--
+
+TRIBES (create, join, nothing)
