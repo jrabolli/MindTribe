@@ -7,36 +7,47 @@ raydash-ruby-on-rails
 
 
 
-do 10.3.4 partial refactoring 
-
-at 12.4
-
-assigning admin and provider /UI ?
 
 
-
+-----------
+misc
+-------
 http://www.ama-assn.org/amednews/2012/04/30/bisa0430.htm
 
 http://digitalhealthaccelerator.com/
 
+-----------
+ideas
+----------
 scheduling appointments
 appointment reminder
 video conf
 docs transfer
 care planReceive health maintenance reminders
 
-admin
+
+--------
+admin?
 --------
 mr test
 test@yahoo.com
 yahoo4
 
 
+--------
+todo
+-------
+assigning admin and provider /UI ?
 pagination not quite right - index.html, custom.css issues
 
 
-
---
---
-
+----------
+archetecture
+---------
 TRIBES (create, join, nothing)
+
+
+------
+changes
+-------
+When modeling longer posts, such as those for a normal (non-micro) blog, you should use the text type in place of string.[changed string to text]
