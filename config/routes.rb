@@ -1,5 +1,11 @@
 MindTribe::Application.routes.draw do
 
+  get "tribes/new"
+
+  get "tribes/show"
+
+  get "tribes/index"
+
   resources :users do
     member do
       get :following, :followers
