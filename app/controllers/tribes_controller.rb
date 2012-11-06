@@ -2,8 +2,23 @@ class TribesController < ApplicationController
   def new
   	@title = "Create a Tribe"
     @tribe = Tribe.new
-
   end
+
+  def create
+    @tribe = Tribe.new(params[:tribe])
+    if @tribe.save
+      flash[:success] = "...and so a new Tribe begins"
+      redirect_to @tribe
+
+      # Handle a successful save.
+    else
+      @title = "Create a Tribe"
+      render 'new'
+    end
+  end
+
+
+
 
   def show
   	#@title = @tribe.name
