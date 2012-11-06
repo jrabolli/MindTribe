@@ -11,8 +11,19 @@
 
 class Tribe < ActiveRecord::Base
 
-	#added for tribes??
-	has_many :memberships
-	has_many :users, :through => :memberships
-	#####
+attr_accessible :name, :description
+
+validates :name, :presence   => true,
+		  :length   => { :maximum => 50 },
+		  :uniqueness => {:case_sensitive => false }
+
+
+#added for tribes??
+has_many :memberships
+has_many :users, :through => :memberships
+#####
+
+
+
+
 end

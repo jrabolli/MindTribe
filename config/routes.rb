@@ -1,11 +1,7 @@
 MindTribe::Application.routes.draw do
 
-  #get "tribes/new"
-  match '/tribecreation', :to => 'tribes#new'
-
-  get "tribes/show"
-
-  get "tribes/index"
+  resources :tribes
+  match '/createtribe', :to => 'tribes#new'
 
   resources :users do
     member do

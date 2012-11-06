@@ -93,6 +93,19 @@ a.signup_button {
   padding: 20px;
 }
 
+a.tribe_button {
+  margin-top: 0.5em;
+  display: block;
+  text-align: center;
+  width: 170px;
+  color: #fff;
+  background: #D3D3D3;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 2px;
+  float: left;
+}
+
 /* Round corners */
 
 .round {
