@@ -27,12 +27,12 @@ class TribesController < ApplicationController
 
   def index
   	@title = "All Tribes"
-    @tribe = Tribe.paginate(:page => params[:page], :per_page => 8, :order => 'name ASC')
+    @tribes = Tribe.paginate(:page => params[:page], :per_page => 8, :order => 'name ASC')
 
   end
 
 end
 
 
-# chap 6
+# 8.2.2
 
