@@ -17,7 +17,7 @@ require 'digest'
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation, :provider
   
   has_many :microposts, :dependent => :destroy
 
@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
                                    :class_name => "Relationship",
                                    :dependent => :destroy
   has_many :followers, :through => :reverse_relationships, :source => :follower
+
+  has_many :clippings
 
   #added for tribes??
   belongs_to :tribe

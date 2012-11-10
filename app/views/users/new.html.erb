@@ -20,6 +20,13 @@
     <%= f.label :password_confirmation, "Confirmation" %><br />
     <%= f.password_field :password_confirmation %>
   </div>
+
+
+<div class="field">
+<%= f.label :provider %><br />
+<%= f.check_box :provider %>
+</div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

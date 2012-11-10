@@ -1,16 +1,17 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
-
 gem "rake", "0.8.7"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '3.0.pre2'
 gem 'heroku'
+gem 'jquery-rails'
 
+#for uploading files
+gem "paperclip", "~> 2.3"
+
+#for nested folders
+gem "acts_as_tree"
 
 group :development do	
   gem 'mysql2'
@@ -36,7 +37,9 @@ group :assets do
   gem 'uglifier'
 end
 
-gem 'jquery-rails'
+
+#for Paperclip to use Amazon S3  
+#gem "aws-sdk"
 
 # Use unicorn as the web server
 # gem 'unicorn'

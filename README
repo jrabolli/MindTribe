@@ -38,6 +38,8 @@ todo
 -------
 assigning admin and provider /UI ?
 pagination not quite right - index.html, custom.css issues
+delete tribes
+join tribes
 
 
 ----------
@@ -46,7 +48,4 @@ archetecture
 TRIBES (create, join, nothing)
 
 
-------
-changes
--------
-When modeling longer posts, such as those for a normal (non-micro) blog, you should use the text type in place of string.[changed string to text]
+

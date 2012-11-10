@@ -34,5 +34,3 @@ class TribesController < ApplicationController
 end
 
 
-# 8.2.2
-

@@ -1,5 +1,8 @@
 MindTribe::Application.routes.draw do
 
+
+  resources :clippings
+
   resources :tribes
   match '/createtribe', :to => 'tribes#new'
 
