@@ -1,23 +1,16 @@
-<h1>Listing clippings</h1>
-
-<table>
-  <tr>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @clippings.each do |clipping| %>
-  <tr>
-    <td><%= clipping.user_id %></td>
-    <td><%= link_to 'Show', clipping %></td>
-    <td><%= link_to 'Edit', edit_clipping_path(clipping) %></td>
-    <td><%= link_to 'Destroy', clipping, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Clipping', new_clipping_path %>
+<%#=<% title "Clippings" %>  
+<h1>Clippings</h1>
+<table>  
+  <tr>  
+    <th>Uploaded Clippings</th>  
+  </tr>  
+  <% for clipping in @clippings %>  
+    <tr>  
+      <td><%= link_to clipping.uploaded_file_file_name, clipping.uploaded_file.url %></td>  
+      <td><%= link_to "Show", clipping %></td>  
+      <td><%= link_to "Edit", edit_clipping_path(clipping) %></td>  
+      <td><%= link_to "Destroy", clipping, :confirm => 'Are you sure?', :method => :delete %></td>  
+    </tr>  
+  <% end %>  
+</table>  
+<p><%= link_to "New Clipping", new_clipping_path %></p> 

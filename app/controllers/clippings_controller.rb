@@ -5,7 +5,8 @@ class ClippingsController < ApplicationController
   # GET /clippings
   # GET /clippings.json
   def index
-    @clippings = Clipping.all
+    #@clippings = Clipping.all
+    @clippings = current_user.clippings
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +17,8 @@ class ClippingsController < ApplicationController
   # GET /clippings/1
   # GET /clippings/1.json
   def show
-    @clipping = Clipping.find(params[:id])
+    #@clipping = Clipping.find(params[:id])
+    @clipping = current_user.clippings.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +29,8 @@ class ClippingsController < ApplicationController
   # GET /clippings/new
   # GET /clippings/new.json
   def new
-    @clipping = Clipping.new
+    #@clipping = Clipping.new
+    @clipping = current_user.clippings.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,13 +40,16 @@ class ClippingsController < ApplicationController
 
   # GET /clippings/1/edit
   def edit
-    @clipping = Clipping.find(params[:id])
+    #@clipping = Clipping.find(params[:id])
+    @clipping = current_user.clippings.find(params[:id])
+
   end
 
   # POST /clippings
   # POST /clippings.json
   def create
-    @clipping = Clipping.new(params[:clipping])
+    #@clipping = Clipping.new(params[:clipping])
+    @clipping = current_user.clippings.new(params[:clipping])
 
     respond_to do |format|
       if @clipping.save
@@ -59,7 +65,9 @@ class ClippingsController < ApplicationController
   # PUT /clippings/1
   # PUT /clippings/1.json
   def update
-    @clipping = Clipping.find(params[:id])
+    #@clipping = Clipping.find(params[:id])
+    @clipping = current_user.find(params[:id])
+
 
     respond_to do |format|
       if @clipping.update_attributes(params[:clipping])
@@ -75,7 +83,9 @@ class ClippingsController < ApplicationController
   # DELETE /clippings/1
   # DELETE /clippings/1.json
   def destroy
-    @clipping = Clipping.find(params[:id])
+    #@clipping = Clipping.find(params[:id])
+    @clipping = current_user.clippings.find(params[:id])
+
     @clipping.destroy
 
     respond_to do |format|
