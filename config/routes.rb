@@ -1,7 +1,10 @@
 MindTribe::Application.routes.draw do
 
 
+  resources :folders
+
   resources :clippings
+  match "clippings/get/:id" => "clippings#get", :as => "download"
 
   resources :tribes
   match '/createtribe', :to => 'tribes#new'

@@ -89,8 +89,22 @@ class ClippingsController < ApplicationController
     @clipping.destroy
 
     respond_to do |format|
-      format.html { redirect_to clippings_url }
+      format.html { redirect_to clippings_url, notice: 'Clipping was successfully destroyed.' }
       format.json { head :ok }
     end
   end
+
+  #this action will let the users download the files (after a simple authorization check)  
+def get  
+    clipping = current_user.clippings.find_by_id(params[:id])  
+      if clipping  
+        send_file clipping.uploaded_file.path, :type => clipping.uploaded_file_content_type  
+      else  
+        flash[:error] = "Don't be cheeky! Mind your own clippings!"  
+        redirect_to clippings_path  
+      end  
+end  
+
+
+
 end

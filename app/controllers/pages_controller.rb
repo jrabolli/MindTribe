@@ -5,6 +5,9 @@ class PagesController < ApplicationController
     if signed_in?
       @micropost = Micropost.new
       @feed_items = current_user.feed.paginate(:page => params[:page])
+
+      #added for clippings
+      @clippings = current_user.clippings.order("uploaded_file_file_name desc")
     end
   end
 

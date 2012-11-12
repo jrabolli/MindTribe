@@ -6,7 +6,8 @@
   </tr>  
   <% for clipping in @clippings %>  
     <tr>  
-      <td><%= link_to clipping.uploaded_file_file_name, clipping.uploaded_file.url %></td>  
+      <td><%= link_to clipping.file_name, download_url(clipping)%></td>
+      <%#=<td><%= link_to clipping.uploaded_file_file_name, clipping.uploaded_file.url %></td>  
       <td><%= link_to "Show", clipping %></td>  
       <td><%= link_to "Edit", edit_clipping_path(clipping) %></td>  
       <td><%= link_to "Destroy", clipping, :confirm => 'Are you sure?', :method => :delete %></td>  
