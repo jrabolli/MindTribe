@@ -1,8 +1,12 @@
 class FoldersController < ApplicationController
+
+      before_filter :authenticate
+
   # GET /folders
   # GET /folders.json
   def index
-    @folders = Folder.all
+    #@folders = Folder.all
+    @folders = current_user.folders
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +17,9 @@ class FoldersController < ApplicationController
   # GET /folders/1
   # GET /folders/1.json
   def show
-    @folder = Folder.find(params[:id])
+    #@folder = Folder.find(params[:id])
+    @folder = current_user.folders.find(params[:id])  
+
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +30,8 @@ class FoldersController < ApplicationController
   # GET /folders/new
   # GET /folders/new.json
   def new
-    @folder = Folder.new
+    #@folder = Folder.new
+    @folder = current_user.folders.new  
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +41,17 @@ class FoldersController < ApplicationController
 
   # GET /folders/1/edit
   def edit
-    @folder = Folder.find(params[:id])
+    #@folder = Folder.find(params[:id])
+    @folder = current_user.folders.find(params[:id])  
+
   end
 
   # POST /folders
   # POST /folders.json
   def create
-    @folder = Folder.new(params[:folder])
+    #@folder = Folder.new(params[:folder])
+    @folder = current_user.folders.new(params[:folder])  
+
 
     respond_to do |format|
       if @folder.save
@@ -56,7 +67,9 @@ class FoldersController < ApplicationController
   # PUT /folders/1
   # PUT /folders/1.json
   def update
-    @folder = Folder.find(params[:id])
+    #@folder = Folder.find(params[:id])
+    @folder = current_user.folders.find(params[:id])  
+
 
     respond_to do |format|
       if @folder.update_attributes(params[:folder])
@@ -72,7 +85,9 @@ class FoldersController < ApplicationController
   # DELETE /folders/1
   # DELETE /folders/1.json
   def destroy
-    @folder = Folder.find(params[:id])
+    #@folder = Folder.find(params[:id])
+    @folder = current_user.folders.find(params[:id])  
+
     @folder.destroy
 
     respond_to do |format|

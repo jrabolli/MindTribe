@@ -10,14 +10,13 @@
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #  admin              :boolean(1)      default(FALSE)
-#  provider           :boolean(1)      default(FALSE)
 #
 
 require 'digest'
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation, :provider
+  attr_accessible :name, :email, :password, :password_confirmation
   
   has_many :microposts, :dependent => :destroy
 

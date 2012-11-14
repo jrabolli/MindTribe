@@ -2,6 +2,7 @@ MindTribe::Application.routes.draw do
 
 
   resources :folders
+  match "browse/:folder_id" => "pages#browse", :as => "browse"  
 
   resources :clippings
   match "clippings/get/:id" => "clippings#get", :as => "download"
