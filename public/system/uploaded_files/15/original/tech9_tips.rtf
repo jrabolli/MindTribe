@@ -1,0 +1,28 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl460\sa400\ql\qnatural
+
+\f0\fs30 \cf2 \shad\shadx0\shady-20\shadr20\shado255 \shadc0 Prepare img size max 400px width X max 70px height\
+\pard\pardeftab720\sl460\sa400\ql\qnatural
+
+\b \cf2 \shad\shadx0\shady-20\shadr20\shado255 \shadc0 open style css, find line 41
+\b0 \shad\shadx0\shady-20\shadr20\shado255 \shadc0 \
+#header\{background:transparent url(images/sl.jpg) 0 12px no-repeat;width:100%;height:90px;display:block;margin:5px auto 0;padding:0;\}\
+change img name to your image name\
+
+\b \shad\shadx0\shady-20\shadr20\shado255 \shadc0 find line 42
+\b0 \shad\shadx0\shady-20\shadr20\shado255 \shadc0 \
+.head\{background:transparent;height:65px;display:inline-block;float:left;margin:0;padding:10px 0 0 40px;\}\
+change to\
+.head\{background:transparent;height:65px;display:inline-block;float:left;margin:0;padding:10px 0 0 0;\}
+\f1 \uc0\u8232 
+\b \shad\shadx0\shady-20\shadr20\shado255 \shadc0 \uc0\u8232 
+\f0 find line 43
+\b0 \shad\shadx0\shady-20\shadr20\shado255 \shadc0 \
+.head h1 a,.head h1\{text-decoration:none;outline:none;height:65px;display:block;color:#333;\}\
+change to\
+.head h1 a,.head h1\{outline:none;width:400px;height:65px;display:block;text-indent:-99999px;\}\
+this way you have a semantically correct replacement, which works also for screen readers.}
