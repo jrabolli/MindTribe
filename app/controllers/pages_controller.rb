@@ -4,13 +4,7 @@ class PagesController < ApplicationController
     @title = "Home"
     if signed_in?
       @micropost = Micropost.new
-      @feed_items = current_user.feed.paginate(:page => params[:page])
-
-      #load current_user's folders  
-      @folders = current_user.folders.order("name desc")
-
-      #added for clippings
-      @clippings = current_user.clippings.order("uploaded_file_file_name desc")
+      @feed_items = current_user.feed.paginate(:page => params[:page]) 
     end
   end
 
@@ -26,6 +20,18 @@ class PagesController < ApplicationController
     @title = "Help"
   end
 
+  def clippings_home
+    @title = "Clippings Home"
+
+    if signed_in?
+      #show only root folders (which have no parent folders)  
+      @folders = current_user.folders.roots
+
+      #show only root files which has no "folder_id"  
+      @clippings = current_user.clippings.where("folder_id is NULL").order("uploaded_file_file_name desc") 
+    end
+  end
+
 
 
   #this action is for viewing folders  
@@ -38,10 +44,10 @@ def browse
       #getting the folders which are inside this @current_folder  
       @folders = @current_folder.children  
   
-      #We need to fix this to show files under a specific folder if we are viewing that folder  
-      @clippings = current_user.clippings.order("uploaded_file_file_name desc")  
+      #show only files under this current folder  
+      @clippings = @current_folder.clippings.order("uploaded_file_file_name desc") 
   
-      render :action => "home"  
+      render :action => "clippings_home"  
     else  
       flash[:error] = "Don't be cheeky! Mind your own folders!"  
       redirect_to root_url  

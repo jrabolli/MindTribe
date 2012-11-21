@@ -10,6 +10,7 @@
 #  uploaded_file_content_type :string(255)
 #  uploaded_file_file_size    :integer(4)
 #  uploaded_file_updated_at   :datetime
+#  folder_id                  :integer(4)
 #
 
 require 'spec_helper'

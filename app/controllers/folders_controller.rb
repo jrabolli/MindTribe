@@ -1,11 +1,10 @@
 class FoldersController < ApplicationController
 
-      before_filter :authenticate
+  before_filter :authenticate
 
   # GET /folders
   # GET /folders.json
   def index
-    #@folders = Folder.all
     @folders = current_user.folders
 
     respond_to do |format|
@@ -17,7 +16,6 @@ class FoldersController < ApplicationController
   # GET /folders/1
   # GET /folders/1.json
   def show
-    #@folder = Folder.find(params[:id])
     @folder = current_user.folders.find(params[:id])  
 
 
@@ -30,8 +28,17 @@ class FoldersController < ApplicationController
   # GET /folders/new
   # GET /folders/new.json
   def new
-    #@folder = Folder.new
     @folder = current_user.folders.new  
+
+    #if there is "folder_id" param, we know that we are under a folder, thus, we will essentially create a subfolder  
+   if params[:folder_id] #if we want to create a folder inside another folder  
+       
+     #we still need to set the @current_folder to make the buttons working fine  
+     @current_folder = current_user.folders.find(params[:folder_id])  
+       
+     #then we make sure the folder we are creating has a parent folder which is the @current_folder  
+     @folder.parent_id = @current_folder.id  
+   end  
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,7 +48,6 @@ class FoldersController < ApplicationController
 
   # GET /folders/1/edit
   def edit
-    #@folder = Folder.find(params[:id])
     @folder = current_user.folders.find(params[:id])  
 
   end
@@ -49,14 +55,23 @@ class FoldersController < ApplicationController
   # POST /folders
   # POST /folders.json
   def create
-    #@folder = Folder.new(params[:folder])
     @folder = current_user.folders.new(params[:folder])  
 
 
     respond_to do |format|
       if @folder.save
-        format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
-        format.json { render json: @folder, status: :created, location: @folder }
+        flash[:notice] = "Successfully created folder." #(temp)  
+
+        #format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
+        #format.json { render json: @folder, status: :created, location: @folder }
+      
+        if @folder.parent #checking if we have a parent folder on this one  
+          redirect_to browse_path(@folder.parent)  #then we redirect to the parent folder  
+        else  
+          redirect_to root_url #if not, redirect back to home page (temp) 
+        end  
+
+
       else
         format.html { render action: "new" }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
@@ -67,7 +82,6 @@ class FoldersController < ApplicationController
   # PUT /folders/1
   # PUT /folders/1.json
   def update
-    #@folder = Folder.find(params[:id])
     @folder = current_user.folders.find(params[:id])  
 
 
@@ -85,7 +99,6 @@ class FoldersController < ApplicationController
   # DELETE /folders/1
   # DELETE /folders/1.json
   def destroy
-    #@folder = Folder.find(params[:id])
     @folder = current_user.folders.find(params[:id])  
 
     @folder.destroy

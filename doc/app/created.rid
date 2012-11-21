@@ -1,0 +1,25 @@
+Fri, 16 Nov 2012 14:12:51 -0500
+doc/README_FOR_APP	Wed, 09 Nov 2011 16:52:11 -0500
+app/controllers/application_controller.rb	Wed, 27 Jun 2012 13:31:50 -0400
+app/controllers/clippings_controller.rb	Sun, 11 Nov 2012 21:58:59 -0500
+app/controllers/folders_controller.rb	Mon, 12 Nov 2012 22:49:10 -0500
+app/controllers/microposts_controller.rb	Thu, 08 Nov 2012 00:20:11 -0500
+app/controllers/pages_controller.rb	Thu, 15 Nov 2012 01:09:31 -0500
+app/controllers/relationships_controller.rb	Fri, 29 Jun 2012 00:03:46 -0400
+app/controllers/sessions_controller.rb	Tue, 01 May 2012 13:44:06 -0400
+app/controllers/tribes_controller.rb	Thu, 08 Nov 2012 00:10:21 -0500
+app/controllers/users_controller.rb	Thu, 28 Jun 2012 23:53:17 -0400
+app/helpers/application_helper.rb	Mon, 30 Apr 2012 15:35:43 -0400
+app/helpers/clippings_helper.rb	Fri, 09 Nov 2012 23:20:39 -0500
+app/helpers/folders_helper.rb	Mon, 12 Nov 2012 11:08:16 -0500
+app/helpers/pages_helper.rb	Tue, 22 Nov 2011 12:31:08 -0500
+app/helpers/sessions_helper.rb	Mon, 07 May 2012 22:25:24 -0400
+app/helpers/tribes_helper.rb	Fri, 03 Aug 2012 15:12:24 -0400
+app/helpers/users_helper.rb	Sat, 03 Dec 2011 20:47:19 -0500
+app/models/clipping.rb	Thu, 15 Nov 2012 00:59:47 -0500
+app/models/folder.rb	Thu, 15 Nov 2012 01:01:04 -0500
+app/models/membership.rb	Mon, 09 Jul 2012 22:56:58 -0400
+app/models/micropost.rb	Tue, 03 Jul 2012 22:53:37 -0400
+app/models/relationship.rb	Thu, 28 Jun 2012 15:15:02 -0400
+app/models/tribe.rb	Mon, 05 Nov 2012 21:58:03 -0500
+app/models/user.rb	Wed, 14 Nov 2012 09:54:20 -0500

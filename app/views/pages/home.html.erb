@@ -4,7 +4,8 @@
       <td class="main">
         <h1 class="micropost">Update the Tribe.</h1>
         <%= render 'shared/micropost_form' %>
-		<%= render 'shared/feed' %>
+        <%= render 'shared/feed' %>
+
       </td>
       <td class="sidebar round">
         <%= render 'shared/user_info' %>
@@ -12,55 +13,6 @@
       </td>
     </tr>
   </table>
-
-
-
-
-
-<%-# clippings menu on user home -%>
-    <div id="menu">  
-       <ul id= "top_menu">      
-           <li><%= link_to "New Clipping", new_clipping_path %></li>  
-           <li><%= link_to "New Folder", new_folder_path %></li>  
-       </ul>  
-    </div>  
-<%-# end menu -%>
-
-
-<%-# clippings list(header) on user home -%>
-<div class="clipping_list_header">  
-       <div class="file_name_header">File Name</div>  
-       <div class="file_size_header">Size</div>  
-       <div class="file_last_updated_header">Modified</div>  
-</div>  
-<%-# end clippings list(header) on user home -%>
-
-<div class="clipping_list">  
-<!-- Listing Folders -->  
-    <% @folders.each do |folder| %>  
-        <div class="clipping_details folder">  
-            <div class="file_name"><%= link_to folder.name, folder_path(folder) %></div>  
-            <div class="file_size"> - </div>  
-            <div class="file_last_updated"> - </div>  
-        </div>  
-    <% end %>
-<!-- End Listing Folders -->  
-
-<!-- Listing Files -->  
-       <% @clippings.each do |clipping| %>  
-           <div class="clipping_details file">  
-               <div class="file_name"><%= link_to clipping.file_name, download_url(clipping) %></div> 
-               <div class="file_size"><%= number_to_human_size(clipping.file_size, :precision => 2) %></div>  
-               <div class="file_last_updated"><%= clipping.uploaded_file_updated_at %></div>  
-           </div>  
-       <% end %>  
-</div>  
-<%-# end clippings -%>
-
-
-
-
-
 
 <% else %>
 

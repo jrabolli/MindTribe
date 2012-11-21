@@ -5,7 +5,6 @@ class ClippingsController < ApplicationController
   # GET /clippings
   # GET /clippings.json
   def index
-    #@clippings = Clipping.all
     @clippings = current_user.clippings
 
     respond_to do |format|
@@ -17,7 +16,6 @@ class ClippingsController < ApplicationController
   # GET /clippings/1
   # GET /clippings/1.json
   def show
-    #@clipping = Clipping.find(params[:id])
     @clipping = current_user.clippings.find(params[:id])
 
     respond_to do |format|
@@ -29,18 +27,15 @@ class ClippingsController < ApplicationController
   # GET /clippings/new
   # GET /clippings/new.json
   def new
-    #@clipping = Clipping.new
-    @clipping = current_user.clippings.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @clipping }
-    end
+    @clipping = current_user.clippings.build      
+    if params[:folder_id] #if we want to upload a file inside another folder  
+      @current_folder = current_user.folders.find(params[:folder_id])  
+      @clipping.folder_id = @current_folder.id  
+    end      
   end
 
   # GET /clippings/1/edit
   def edit
-    #@clipping = Clipping.find(params[:id])
     @clipping = current_user.clippings.find(params[:id])
 
   end
@@ -48,24 +43,23 @@ class ClippingsController < ApplicationController
   # POST /clippings
   # POST /clippings.json
   def create
-    #@clipping = Clipping.new(params[:clipping])
-    @clipping = current_user.clippings.new(params[:clipping])
-
-    respond_to do |format|
-      if @clipping.save
-        format.html { redirect_to @clipping, notice: 'Clipping was successfully created.' }
-        format.json { render json: @clipping, status: :created, location: @clipping }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @clipping.errors, status: :unprocessable_entity }
-      end
-    end
+    @clipping = current_user.clippings.build(params[:clipping])  
+    if @clipping.save  
+      flash[:notice] = "Successfully uploaded the file."  
+  
+      if @clipping.folder #checking if we have a parent folder for this file  
+        redirect_to browse_path(@clipping.folder)  #then we redirect to the parent folder  
+      else  
+        redirect_to root_url  
+      end        
+    else  
+      render :action => 'new'  
+    end  
   end
 
   # PUT /clippings/1
   # PUT /clippings/1.json
   def update
-    #@clipping = Clipping.find(params[:id])
     @clipping = current_user.find(params[:id])
 
 
@@ -83,7 +77,6 @@ class ClippingsController < ApplicationController
   # DELETE /clippings/1
   # DELETE /clippings/1.json
   def destroy
-    #@clipping = Clipping.find(params[:id])
     @clipping = current_user.clippings.find(params[:id])
 
     @clipping.destroy

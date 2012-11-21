@@ -1,6 +1,13 @@
 <h1>New clipping</h1>
 
+<%= render :partial => "pages/breadcrumbs" %>  
+
 <%= render 'form' %>
 
-<%= link_to 'Back', clippings_path %>
-
+<p>  
+<% if @clipping.folder %>  
+   <%= link_to "Back to '#{@clipping.folder.name}' Folder", browse_path(@clipping.folder) %>  
+<% else %>  
+   <%= link_to "Back", root_url %>  
+<% end %>  
+</p>  

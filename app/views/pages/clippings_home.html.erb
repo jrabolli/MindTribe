@@ -1,0 +1,58 @@
+<% if signed_in? %>
+  
+
+<%-# clippings menu -%>
+    <div id="menu">  
+       <ul id= "top_menu">   
+
+       <% if @current_folder %>  
+            <li><%= link_to "Upload", new_sub_file_path(@current_folder) %></li>  
+            <li><%= link_to "New Folder", new_sub_folder_path(@current_folder) %></li>  
+        <% else %>  
+            <li><%= link_to "Upload", new_clipping_path %></li>  
+            <li><%= link_to "New Folder", new_folder_path %></li>  
+        <% end %>
+
+           <li><%= link_to "New Clipping", new_clipping_path %></li>  
+       </ul>  
+    </div>  
+
+<%= render :partial => "breadcrumbs" %>  
+
+<%-# clippings list(header) -%>
+<div class="clipping_list_header">  
+       <div class="file_name_header">File Name</div>  
+       <div class="file_size_header">Size</div>  
+       <div class="file_last_updated_header">Modified</div>  
+</div>  
+
+<!-- Listing Folders -->  
+<div class="clipping_list">  
+    <% @folders.each do |folder| %>  
+        <div class="clipping_details folder">  
+            <div class="file_name"><%= link_to folder.name, browse_path(folder) %></div>  
+            <div class="file_size"> - </div>  
+            <div class="file_last_updated"> - </div>  
+        </div>  
+    <% end %>  
+
+<!-- Listing Files -->  
+       <% @clippings.each do |clipping| %>  
+           <div class="clipping_details file">  
+               <div class="file_name"><%= link_to clipping.file_name, download_url(clipping) %></div> 
+               <div class="file_size"><%= number_to_human_size(clipping.file_size, :precision => 2) %></div>  
+               <div class="file_last_updated"><%= clipping.uploaded_file_updated_at %></div>  
+           </div>  
+       <% end %>  
+</div>  
+  
+<% else %>
+
+<h1>MindTribe</h1>
+<p>
+  Connect. Communicate. Care.
+</p>
+
+<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
+
+<% end %>

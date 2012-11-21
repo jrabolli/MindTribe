@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114145049) do
+ActiveRecord::Schema.define(:version => 20121115055226) do
 
   create_table "clippings", :force => true do |t|
     t.integer  "user_id"
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(:version => 20121114145049) do
     t.string   "uploaded_file_content_type"
     t.integer  "uploaded_file_file_size"
     t.datetime "uploaded_file_updated_at"
+    t.integer  "folder_id"
   end
 
+  add_index "clippings", ["folder_id"], :name => "index_clippings_on_folder_id"
   add_index "clippings", ["user_id"], :name => "index_clippings_on_user_id"
 
   create_table "folders", :force => true do |t|

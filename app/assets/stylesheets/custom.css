@@ -367,4 +367,48 @@ form.new_micropost textarea {
 #menu ul li a:hover, #menu ul li a:active{  
     background:#DFF1FF;  
     border:1px solid #AFDDFF;  
+}
+
+
+
+/* clippings images*/
+.folder  {  
+    background:url('folder.png') no-repeat scroll left center transparent;  
 }  
+  
+.file {  
+    background:url('file.png') no-repeat scroll left center transparent;  
+}  
+.folder.clipping_details:hover, .shared_folder.clipping_details:hover, .file.clipping_details:hover  {  
+    border:1px solid #DFDFDF;  
+}  
+.folder.clipping_details:hover  {  
+    background:url('folder.png') no-repeat scroll left center #EFEFEF;  
+}  
+.shared_folder  {  
+    background:url('shared_folder.png') no-repeat scroll left center transparent;  
+}  
+.shared_folder.clipping_details:hover  {  
+    background:url('shared_folder.png') no-repeat scroll left center #EFEFEF;  
+}  
+.file.clipping_details:hover  {  
+    background:url('file.png') no-repeat scroll left center #EFEFEF;  
+}  
+
+/* breadcrumbs */
+.breadcrumbs {  
+   margin:10px 0;  
+   font-weight:bold;  
+}  
+.breadcrumbs a {  
+   color:#1D96EF;  
+   text-decoration:none;  
+}  
+
+
+
+
+
+
+
+

@@ -3,9 +3,13 @@ MindTribe::Application.routes.draw do
 
   resources :folders
   match "browse/:folder_id" => "pages#browse", :as => "browse"  
+  #for creating folders insiide another folder  
+  match "browse/:folder_id/new_folder" => "folders#new", :as => "new_sub_folder"
 
   resources :clippings
-  match "clippings/get/:id" => "clippings#get", :as => "download"
+  match 'clippings/get/:id' => 'clippings#get', :as => 'download'
+  #for uploading files to folders  
+  match "browse/:folder_id/new_file" => "clippings#new", :as => "new_sub_file"  
 
   resources :tribes
   match '/createtribe', :to => 'tribes#new'
@@ -31,6 +35,7 @@ MindTribe::Application.routes.draw do
   match '/contact', :to => 'pages#contact'
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
+  match '/clippingsHome', :to => 'pages#clippings_home'
 
   root :to => 'pages#home'
   

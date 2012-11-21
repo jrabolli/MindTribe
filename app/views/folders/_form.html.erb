@@ -5,6 +5,7 @@
  <p>  
     <%= f.label :name %><br />  
     <%= f.text_field :name %>  
- </p>  
+ </p> 
+    <%= f.hidden_field :parent_id %>   
  <p><%= f.submit "Create Folder" %></p>  
 <% end %>  

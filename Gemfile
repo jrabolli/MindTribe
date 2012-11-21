@@ -17,6 +17,7 @@ group :development do
   gem 'mysql2'
   gem 'rspec-rails', '2.6.1'
   gem 'annotate', '2.4.0'
+  gem 'railroady'
 end
 
 group :test do

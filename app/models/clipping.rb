@@ -10,13 +10,15 @@
 #  uploaded_file_content_type :string(255)
 #  uploaded_file_file_size    :integer(4)
 #  uploaded_file_updated_at   :datetime
+#  folder_id                  :integer(4)
 #
 
 class Clipping < ActiveRecord::Base
 
-	attr_accessible :user_id, :uploaded_file 
+	attr_accessible :user_id, :uploaded_file, :folder_id
 
 	belongs_to :user
+	belongs_to :folder
 
 	has_attached_file :uploaded_file,  
                :url => "/clippings/get/:id",  
