@@ -1,5 +1,4 @@
 integrate Devise
-paperclip vs. attachment_fu
 
 rspec / cucumber
 
@@ -48,4 +47,24 @@ archetecture
 TRIBES (create, join, nothing)
 
 
-section 7 - sharebox
+# you'd have 3 models (user, group, group_user)
+# user - you already have but it has the following relationship
+
+belongs_to :group
+
+
+#------------
+# group is a new model with an id, and a name and the following relationship
+has_many :group_users
+has_many :users :through=>:group_users
+
+# ----------
+#group_users is a new model with an id, user_id, group_id
+# (basically this is a join table) with the following relationships
+belongs_to :user
+belongs_to :group
+
+
+
+#this is off the top of my head and keep in mind that I'm pretty new.  good luck though
+# rails is fun :)
