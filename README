@@ -68,3 +68,12 @@ belongs_to :group
 
 #this is off the top of my head and keep in mind that I'm pretty new.  good luck though
 # rails is fun :)
+
+
+
+
+
+            <%= link_to "Share", "#", :folder_id => folder.id, :folder_name => folder.name %>  
+
+
+            , "jquery-ui-1.9.2.custom", "jquery-ui-1.9.2.custom.min", "jquery-1.8.3"

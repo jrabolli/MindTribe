@@ -5,6 +5,11 @@ MindTribe::Application.routes.draw do
   match "browse/:folder_id" => "pages#browse", :as => "browse"  
   #for creating folders insiide another folder  
   match "browse/:folder_id/new_folder" => "folders#new", :as => "new_sub_folder"
+  #for renaming a folder  
+  match "browse/:folder_id/rename" => "folders#edit", :as => "rename_folder"  
+  #for sharing the folder
+  match "pages/share" => "pages#share"  
+
 
   resources :clippings
   match 'clippings/get/:id' => 'clippings#get', :as => 'download'

@@ -50,7 +50,7 @@ class ClippingsController < ApplicationController
       if @clipping.folder #checking if we have a parent folder for this file  
         redirect_to browse_path(@clipping.folder)  #then we redirect to the parent folder  
       else  
-        redirect_to root_url  
+        redirect_to clippingsHome_url  
       end        
     else  
       render :action => 'new'  
@@ -74,20 +74,27 @@ class ClippingsController < ApplicationController
     end
   end
 
+
+
+
+
   # DELETE /clippings/1
   # DELETE /clippings/1.json
-  def destroy
-    @clipping = current_user.clippings.find(params[:id])
+  def destroy  
+    @clipping = current_user.clippings.find(params[:id])  
+    @parent_folder = @clipping.folder #grabbing the parent folder before deleting the record  
+    @clipping.destroy  
+    flash[:notice] = "Successfully deleted the clipping."  
+  
+  #redirect to a relevant path depending on the parent folder  
+    if @parent_folder  
+      redirect_to browse_path(@parent_folder)  
+    else  
+      redirect_to clippingsHome_url  
+    end  
+  end  
 
-    @clipping.destroy
 
-    respond_to do |format|
-      format.html { redirect_to clippings_url, notice: 'Clipping was successfully destroyed.' }
-      format.json { head :ok }
-    end
-  end
-
-  #this action will let the users download the files (after a simple authorization check)  
 def get  
     clipping = current_user.clippings.find_by_id(params[:id])  
       if clipping  

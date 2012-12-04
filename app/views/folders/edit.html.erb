@@ -1,6 +1,14 @@
-<h1>Editing folder</h1>
+<%#=<% title "Rename Folder" %>  
+<h1>Rename Folder</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @folder %> |
-<%= link_to 'Back', folders_path %>
+<%= render :partial => "pages/breadcrumbs" %>  
+  
+<%= render 'form' %>  
+  
+<p>  
+<% if @folder.parent %>  
+   <%= link_to "Back to '#{@folder.parent.name}' Folder", browse_path(@folder.parent) %>  
+<% else %>  
+   <%= link_to "Back", root_url %>  
+<% end %>  
+</p>  
