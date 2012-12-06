@@ -70,7 +70,12 @@ belongs_to :group
 # rails is fun :)
 
 
+Viewing a Folder Shared by Others
 
+
+
+<%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+<%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
 
 
             <%= link_to "Share", "#", :folder_id => folder.id, :folder_name => folder.name %>  

@@ -75,9 +75,6 @@ class ClippingsController < ApplicationController
   end
 
 
-
-
-
   # DELETE /clippings/1
   # DELETE /clippings/1.json
   def destroy  
@@ -95,16 +92,19 @@ class ClippingsController < ApplicationController
   end  
 
 
-def get  
+  def get  
     clipping = current_user.clippings.find_by_id(params[:id])  
+    clipping ||= Clipping.find(params[:id]) if current_user.has_share_access?(Clipping.find_by_id(params[:id]).folder)  
+      
       if clipping  
-        send_file clipping.uploaded_file.path, :type => clipping.uploaded_file_content_type  
+        #Parse the URL for special characters first before downloading  
+        data = open(URI.parse(URI.encode(clipping.uploaded_file.url)))  
+        send_data data, :filename => clipping.uploaded_file_file_name  
+        #redirect_to clipping.uploaded_file.url
       else  
         flash[:error] = "Don't be cheeky! Mind your own clippings!"  
         redirect_to clippings_path  
       end  
-end  
-
-
+  end  
 
 end
