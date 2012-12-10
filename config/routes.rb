@@ -1,6 +1,6 @@
 MindTribe::Application.routes.draw do
 
-
+  resources :files #not sure why this worked post 3.2 upgrade - new_file_path error!
   resources :folders
   match "browse/:folder_id" => "pages#browse", :as => "browse"  
   #for creating folders insiide another folder  
