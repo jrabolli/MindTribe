@@ -116,6 +116,10 @@ class User < ActiveRecord::Base
 
   #to check if a user has acess to this specific folder  
 def has_share_access?(folder)  
+
+    # doesn't have share access if folder is nil (i.e., file is top-level)
+    return false if folder.nil?
+
     #has share access if the folder is one of one of his own  
     return true if self.folders.include?(folder)  
   

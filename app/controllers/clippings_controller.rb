@@ -1,3 +1,5 @@
+#require 'open-uri'
+
 class ClippingsController < ApplicationController
 
     before_filter :authenticate
@@ -7,10 +9,10 @@ class ClippingsController < ApplicationController
   def index
     @clippings = current_user.clippings
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @clippings }
-    end
+    #respond_to do |format|
+    #  format.html # index.html.erb
+    #  format.json { render json: @clippings }
+    #end
   end
 
   # GET /clippings/1
@@ -18,10 +20,10 @@ class ClippingsController < ApplicationController
   def show
     @clipping = current_user.clippings.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @clipping }
-    end
+    #respond_to do |format|
+    #  format.html # show.html.erb
+    #  format.json { render json: @clipping }
+    #end
   end
 
   # GET /clippings/new
@@ -59,19 +61,22 @@ class ClippingsController < ApplicationController
 
   # PUT /clippings/1
   # PUT /clippings/1.json
-  def update
-    @clipping = current_user.find(params[:id])
+  def update #this action changed after reviewing Codey github
+    @clipping = current_user.clippings.find(params[:id])
+    #@clipping = current_user.find(params[:id])
 
 
-    respond_to do |format|
+    #respond_to do |format|
       if @clipping.update_attributes(params[:clipping])
-        format.html { redirect_to @clipping, notice: 'Clipping was successfully updated.' }
-        format.json { head :ok }
+        redirect_to @clipping, :notice  => "Successfully updated clipping."
+     #   format.html { redirect_to @clipping, notice: 'Clipping was successfully updated.' }
+     #   format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @clipping.errors, status: :unprocessable_entity }
+        render :action => 'edit'
+     #   format.html { render action: "edit" }
+     #   format.json { render json: @clipping.errors, status: :unprocessable_entity }
       end
-    end
+    #end
   end
 
 
@@ -98,9 +103,12 @@ class ClippingsController < ApplicationController
       
       if clipping  
         #Parse the URL for special characters first before downloading  
-        data = open(URI.parse(URI.encode(clipping.uploaded_file.url)))  
-        send_data data, :filename => clipping.uploaded_file_file_name  
+        #data = open(URI.parse(URI.encode(clipping.uploaded_file.url)))  
+        #data = open(clipping.uploaded_file.url)
+        #send_data data, :filename => clipping.uploaded_file_file_name  
+        #send_data data, :filename => clipping.file_name
         #redirect_to clipping.uploaded_file.url
+        send_file clipping.uploaded_file.path, :type => clipping.uploaded_file_content_type
       else  
         flash[:error] = "Don't be cheeky! Mind your own clippings!"  
         redirect_to clippings_path  

@@ -1,5 +1,6 @@
 class FoldersController < ApplicationController
 
+#changed after Codey github review
   before_filter :authenticate
 
   # GET /folders
@@ -7,10 +8,10 @@ class FoldersController < ApplicationController
   def index
     @folders = current_user.folders
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @folders }
-    end
+   # respond_to do |format|
+   #   format.html # index.html.erb
+   #   format.json { render json: @folders }
+   # end
   end
 
   # GET /folders/1
@@ -19,10 +20,10 @@ class FoldersController < ApplicationController
     @folder = current_user.folders.find(params[:id])  
 
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @folder }
-    end
+    #respond_to do |format|
+    #  format.html # show.html.erb
+    #  format.json { render json: @folder }
+    #end
   end
 
   # GET /folders/new
@@ -40,10 +41,10 @@ class FoldersController < ApplicationController
      @folder.parent_id = @current_folder.id  
    end  
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @folder }
-    end
+    #respond_to do |format|
+    #  format.html # new.html.erb
+    #  format.json { render json: @folder }
+    #end
   end
 
   # GET /folders/1/edit
@@ -58,8 +59,7 @@ class FoldersController < ApplicationController
   def create
     @folder = current_user.folders.new(params[:folder])  
 
-
-    respond_to do |format|
+    #respond_to do |format|
       if @folder.save
         flash[:notice] = "Successfully created folder." #(temp)  
 
@@ -74,27 +74,34 @@ class FoldersController < ApplicationController
 
 
       else
-        format.html { render action: "new" }
-        format.json { render json: @folder.errors, status: :unprocessable_entity }
+        render :action => 'new'
+        #format.html { render action: "new" }
+        #format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
-    end
+    #end
   end
 
   # PUT /folders/1
   # PUT /folders/1.json
+  
+
   def update
     @folder = current_user.folders.find(params[:id])  
 
 
-    respond_to do |format|
+    #respond_to do |format|
       if @folder.update_attributes(params[:folder])
-        format.html { redirect_to @folder, notice: 'Folder was successfully updated.' }
-        format.json { head :ok }
+        redirect_to @folder, :notice  => "Successfully updated folder."
+
+        #format.html { redirect_to @folder, notice: 'Folder was successfully updated.' }
+        #format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @folder.errors, status: :unprocessable_entity }
+        render :action => 'edit'
+
+        #format.html { render action: "edit" }
+        #format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
-    end
+    #end
   end
 
   # DELETE /folders/1

@@ -1,14 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.0'
-gem "rake", "0.8.7"
+gem 'rails', '3.2.9'
+gem "rake", "!= 0.9.0"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '3.0.3'
 gem 'heroku'
 gem 'jquery-rails'
 
 #for uploading files
-gem "paperclip", "~> 3.0"
+#gem "paperclip", "~> 3.0"
+gem "paperclip", "~> 2.3"
 
 #for nested folders
 gem "acts_as_tree"
@@ -33,9 +34,9 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.2.3"
-  gem 'coffee-rails', "~> 3.2.1"
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails', "  ~> 3.2.5"
+  gem 'coffee-rails', "~> 3.2.2"
+  gem 'uglifier', '>= 1.2.3'
 end
 
 

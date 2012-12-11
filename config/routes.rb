@@ -1,18 +1,21 @@
 MindTribe::Application.routes.draw do
 
-  resources :files #not sure why this worked post 3.2 upgrade - new_file_path error!
   resources :folders
   match "browse/:folder_id" => "pages#browse", :as => "browse"  
+  
   #for creating folders insiide another folder  
   match "browse/:folder_id/new_folder" => "folders#new", :as => "new_sub_folder"
+  
   #for renaming a folder  
   match "browse/:folder_id/rename" => "folders#edit", :as => "rename_folder"  
+  
   #for sharing the folder
   match "pages/share" => "pages#share"  
 
 
   resources :clippings
   match 'clippings/get/:id' => 'clippings#get', :as => 'download'
+  
   #for uploading files to folders  
   match "browse/:folder_id/new_file" => "clippings#new", :as => "new_sub_file"  
 
