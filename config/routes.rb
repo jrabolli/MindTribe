@@ -28,21 +28,22 @@ MindTribe::Application.routes.draw do
     end
   end
   
-  get "sessions/new"
+  #get "sessions/new"
 
-  resources :users
-  resources :sessions, :only => [:new, :create, :destroy]
-  resources :microposts, :only => [:create, :destroy]
-  resources :relationships, :only => [:create, :destroy]
+  #resources :users
+
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
   
-  match '/signup', :to => 'users#new'
-  match '/signin',  :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
-  
-  
-  match '/contact', :to => 'pages#contact'
-  match '/about',   :to => 'pages#about'
-  match '/help',    :to => 'pages#help'
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+      
+  match '/help',    to: 'pages#help'
+  match '/about',   to: 'pages#about'
+  match '/contact', to: 'pages#contact'
+
   match '/clippingsHome', :to => 'pages#clippings_home'
 
   root :to => 'pages#home'

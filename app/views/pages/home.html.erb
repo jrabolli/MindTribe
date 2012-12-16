@@ -1,27 +1,31 @@
 <% if signed_in? %>
-  <table class="front" summary="For signed-in users">
-    <tr>
-      <td class="main">
-        <h1 class="micropost">Update the Tribe.</h1>
-        <%= render 'shared/micropost_form' %>
-        <%= render 'shared/feed' %>
-
-      </td>
-      <td class="sidebar round">
+  <div class="row">
+    <aside class="span4">
+      <section>
         <%= render 'shared/user_info' %>
+      </section>
+      <section>
         <%= render 'shared/stats' %>
-      </td>
-    </tr>
-  </table>
-
+      </section>
+      <section>
+        <%= render 'shared/micropost_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h3>Tribal Updates</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
 <% else %>
+  <div class="center hero-unit">
+    <h1>MindTribe</h1>
 
-<h1>MindTribe</h1>
-<p>
-	Connect. Communicate. Care.
-</p>
+    <h2>
+      Connect, Communicate, Care
+    </h2>
 
-<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
-
+    <%= link_to "Sign up now!", signup_path, 
+                                class: "btn btn-large btn-primary" %>
+  </div>
 
 <% end %>

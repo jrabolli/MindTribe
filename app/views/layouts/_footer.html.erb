@@ -1,7 +1,13 @@
-<footer>
-  <nav class="round">
+<footer class="footer">
+  <small>
+    'Connect, Communicate, Care'
+  </small>
+  <nav>
     <ul>
-      <li><a href="http://codeagile.net">{code}Agile</a></li>
+      <li><%= link_to "About",   about_path %></li>
+      <li><%= link_to "Help", help_path %></li>
+      <li><%= link_to "Contact", contact_path %></li>
+      <li><a href="http://CodeAgile.net/">CodeAgile</a></li>
     </ul>
   </nav>
 </footer>

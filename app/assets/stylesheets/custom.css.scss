@@ -1,0 +1,435 @@
+@import "bootstrap";
+
+/* mixins, variables, etc. */
+
+$grayMediumLight: #eaeaea;
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $grayLight;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+  line-height: 1;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $grayMediumLight;
+  color: $grayLight;
+  a {
+    color: $gray;
+    &:hover { 
+      color: $grayDarker;
+    }
+  }  
+  small { 
+    float: left; 
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+/* sidebar */
+
+aside {
+  section {
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
+    }
+  }
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.stats {
+  overflow: auto;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $grayLighter;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: $blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
+  }
+}
+
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+
+#error_explanation {
+  color:#f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+ }
+
+ /* users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:last-child {
+      border-bottom: 1px solid $grayLighter;
+    }
+  }
+}
+
+/* microposts */
+
+.microposts {
+  list-style: none;
+  margin: 10px 0 0 0;
+  
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+
+.content {
+  display: block;
+}
+
+.timestamp {
+  color: $grayLight;
+}
+
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+
+
+
+/* clippings --NOT MODIFIED SINCE BOOTSTRAP */
+
+
+#container {
+  width: 800px;
+  margin: 0 auto;
+  background-color: #FFF;
+  padding: 20px 40px;
+  border: solid 1px #5b5b5b;
+}
+
+
+
+.clipping_list_header, .clipping_list, .clipping_details {  
+    width:800px;  
+    font-weight:bold;  
+    font-size:12px;  
+    overflow:hidden;  
+  
+}  
+.file_name_header, .file_name {  
+    width:350px;  
+    float:left;  
+    padding-left:20px;  
+}  
+.file_size_header, .file_size {  
+    width:100px;  
+    float:left;  
+}  
+.file_last_updated_header, .file_last_updated {  
+    width:150px;  
+    float:left;  
+}  
+.clipping_list {  
+    padding:20px 0;  
+}  
+.clipping_details {  
+    font-weight:normal;  
+    height:25px;  
+    line-height:25px;  
+    border:1px solid #FFF;  
+    width:790px;  
+    color:#4F4F4F;  
+}  
+  
+.clipping_details a, .clipping_details a:visited {  
+    text-decoration:none;  
+    color:#1D96EF;  
+    font-size:12px;  
+}  
+
+
+
+
+/* clippings button*/
+#menu {  
+    width:800px;  
+    padding:0 20px;  
+    margin:20px auto ;  
+    overflow:hidden;  
+}  
+#menu ul{  
+    padding:0;  
+    margin:0;  
+}  
+#menu ul li {  
+    list-style:none;  
+    float:left;  
+    display:block;  
+    margin-right:10px;  
+  
+  
+}  
+#menu ul li a, #menu ul li a:visited{  
+    display:block;  
+    padding:0 15px;  
+    line-height:25px;  
+    text-decoration:none;  
+    color:#45759F;  
+    background:#EFF8FF;  
+    border:1px solid #CFEBFF;  
+}  
+#menu ul li a:hover, #menu ul li a:active{  
+    background:#DFF1FF;  
+    border:1px solid #AFDDFF;  
+}
+
+
+
+/* clippings images*/
+.folder  {  
+    background:url('folder.png') no-repeat scroll left center transparent;  
+}  
+  
+.file {  
+    background:url('file.png') no-repeat scroll left center transparent;  
+}  
+.folder.clipping_details:hover, .shared_folder.clipping_details:hover, .file.clipping_details:hover  {  
+    border:1px solid #DFDFDF;  
+}  
+.folder.clipping_details:hover  {  
+    background:url('folder.png') no-repeat scroll left center #EFEFEF;  
+}  
+.shared_folder  {  
+    background:url('shared_folder.png') no-repeat scroll left center transparent;  
+}  
+.shared_folder.clipping_details:hover  {  
+    background:url('shared_folder.png') no-repeat scroll left center #EFEFEF;  
+}  
+.file.clipping_details:hover  {  
+    background:url('file.png') no-repeat scroll left center #EFEFEF;  
+}  
+
+/* breadcrumbs */
+.breadcrumbs {  
+   margin:10px 0;  
+   font-weight:bold;  
+}  
+.breadcrumbs a {  
+   color:#1D96EF;  
+   text-decoration:none;  
+}  
+
+/* download & delete links */
+.actions {  
+    float:rightright;  
+    font-size:11px;  
+}  
+.share, .rename, .download, .delete{  
+    float:left;   
+}  
+.clipping_details .share a,.clipping_details .rename a,.clipping_details .download a,.clipping_details .delete a{  
+    border: 1px solid #CFE9FF;  
+    font-size: 11px;  
+    margin-left: 5px;  
+    padding: 0 2px;  
+}  
+.clipping_details .share a:hover,.clipping_details .rename a:hover,.clipping_details .download a:hover,.clipping_details .delete a:hover{  
+    border:1px solid #8FCDFF;  
+}  
+  
+.clipping_details .delete a{  
+    color:#BF0B12;  
+    border:1px solid #FFCFD1;  
+}  
+  
+.clipping_details .delete a:hover{  
+    color:#BF0B12;  
+    border:1px solid #FF8F93;  
+}  
+
+
+/* sharing invitation */
+.ui-button-text-only .ui-button-text {  
+    font-size: 14px ;  
+    padding: 3px 10px !important;  
+}  
+.share .ui-button-text-only .ui-button-text {  
+    padding: 0 2px !important;  
+    font-size:11px;  
+    font-weight:normal;  
+}  
+#invitation_form{  
+    font-size:14px;  
+}  
+#invitation_form label{  
+    font-weight:bold;  
+}  
+#invitation_form input.text {  
+    width:480px;  
+    height:20px;  
+    font-size:12px;  
+    color:#7F7F7F;    
+}  
+#invitation_form textarea {  
+    width:480px;  
+    height:80px;  
+    font-size:12px;  
+    color:#7F7F7F;  
+}  
+
+
+
+
+

@@ -1,7 +1,7 @@
 class FoldersController < ApplicationController
 
 #changed after Codey github review
-  before_filter :authenticate
+  before_filter :signed_in_user
 
   # GET /folders
   # GET /folders.json

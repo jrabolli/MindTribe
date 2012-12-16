@@ -2,7 +2,7 @@
 
 class ClippingsController < ApplicationController
 
-    before_filter :authenticate
+    before_filter :signed_in_user
 
   # GET /clippings
   # GET /clippings.json

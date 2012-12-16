@@ -1,14 +1,16 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.9'
+gem 'bootstrap-sass', '2.1'
+gem 'bcrypt-ruby', '3.0.1'
 gem "rake", "!= 0.9.0"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
 gem 'heroku'
 gem 'jquery-rails'
 
 #for uploading files
-#gem "paperclip", "~> 3.0"
 gem "paperclip", "~> 2.3"
 
 #for nested folders
