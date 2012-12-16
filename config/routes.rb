@@ -18,7 +18,7 @@ MindTribe::Application.routes.draw do
   
   #for uploading files to folders  
   match "browse/:folder_id/new_file" => "clippings#new", :as => "new_sub_file"  
-
+  
   resources :tribes
   match '/createtribe', :to => 'tribes#new'
 
