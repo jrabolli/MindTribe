@@ -18,9 +18,17 @@ MindTribe::Application.routes.draw do
   
   #for uploading files to folders  
   match "browse/:folder_id/new_file" => "clippings#new", :as => "new_sub_file"  
+  #match "browse/:folder_id/new_file" => "clippings#new", :as => "new_clipping"  
+
+  match '/clippingsHome', :to => 'pages#clippings_home'
+
   
+
   resources :tribes
   match '/createtribe', :to => 'tribes#new'
+
+  
+
 
   resources :users do
     member do
@@ -43,8 +51,6 @@ MindTribe::Application.routes.draw do
   match '/help',    to: 'pages#help'
   match '/about',   to: 'pages#about'
   match '/contact', to: 'pages#contact'
-
-  match '/clippingsHome', :to => 'pages#clippings_home'
 
   root :to => 'pages#home'
   

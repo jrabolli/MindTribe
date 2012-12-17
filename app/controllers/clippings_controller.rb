@@ -29,7 +29,9 @@ class ClippingsController < ApplicationController
   # GET /clippings/new
   # GET /clippings/new.json
   def new
-    @clipping = current_user.clippings.build      
+    @clipping = current_user.clippings.build  
+    #@clipping = current_user.clippings.new      
+    
     if params[:folder_id] #if we want to upload a file inside another folder  
       @current_folder = current_user.folders.find(params[:folder_id])  
       @clipping.folder_id = @current_folder.id  
