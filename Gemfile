@@ -7,7 +7,6 @@ gem "rake", "!= 0.9.0"
 gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
-gem 'heroku'
 gem 'jquery-rails'
 
 #for uploading files
@@ -29,7 +28,7 @@ group :test do
 end
 
 group :production do
-	gem 'pg'
+	gem 'pg', '0.12.2'
 	gem 'thin'
 end
 
