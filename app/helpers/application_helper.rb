@@ -10,8 +10,8 @@ module ApplicationHelper
     end
   end
   
-  def logo
-      image_tag("MindTribeLogo.png", :alt => "MindTribe", :class => "round")
-  end
+  #def logo
+  #    image_tag("MindTribeLogo.png", :alt => "MindTribe", :class => "round")
+  #end
 
 end

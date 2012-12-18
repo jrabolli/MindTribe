@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>Class: PagesController</title>
+<title>class PagesController - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -74,11 +74,15 @@
     
     <li><a href="#method-i-browse">#browse</a>
     
+    <li><a href="#method-i-clippings_home">#clippings_home</a>
+    
     <li><a href="#method-i-contact">#contact</a>
     
     <li><a href="#method-i-help">#help</a>
     
     <li><a href="#method-i-home">#home</a>
+    
+    <li><a href="#method-i-share">#share</a>
     
   </ul>
 </nav>
@@ -135,6 +139,8 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./SharedFolder.html">SharedFolder</a>
+  
     <li><a href="./Tribe.html">Tribe</a>
   
     <li><a href="./TribesController.html">TribesController</a>
@@ -142,6 +148,8 @@
     <li><a href="./TribesHelper.html">TribesHelper</a>
   
     <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -194,9 +202,8 @@
 
           
           <div class="method-source-code" id="about-source">
-            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 21</span>
+            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">about</span>
-  <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;About&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- about-source -->
           
@@ -224,20 +231,33 @@
 
           
           <div class="method-source-code" id="browse-source">
-            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 32</span>
+            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">browse</span>  
     <span class="ruby-comment">#get the folders owned/created by the current_user  </span>
-    <span class="ruby-ivar">@current_folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>])    
+    <span class="ruby-ivar">@current_folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>])    
+    <span class="ruby-ivar">@is_this_folder_being_shared</span> = <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@current_folder</span> <span class="ruby-comment">#just an instance variable to help hiding buttons on View  </span>
   
+    <span class="ruby-comment">#if not found in own folders, find it in being_shared_folders  </span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@current_folder</span>.<span class="ruby-identifier">nil?</span>  
+    <span class="ruby-identifier">folder</span> = <span class="ruby-constant">Folder</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>])  
+
+    <span class="ruby-ivar">@current_folder</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">folder</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_share_access?</span>(<span class="ruby-identifier">folder</span>)  
+    <span class="ruby-ivar">@is_this_folder_being_shared</span> = <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@current_folder</span> <span class="ruby-comment">#just an instance variable to help hiding buttons on View  </span>
+      
+  <span class="ruby-keyword">end</span>  
+
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@current_folder</span>  
     
+      <span class="ruby-comment">#if under a sub folder, we shouldn't see shared folders  </span>
+      <span class="ruby-ivar">@being_shared_folders</span> = []  
+      
       <span class="ruby-comment">#getting the folders which are inside this @current_folder  </span>
       <span class="ruby-ivar">@folders</span> = <span class="ruby-ivar">@current_folder</span>.<span class="ruby-identifier">children</span>  
   
-      <span class="ruby-comment">#We need to fix this to show files under a specific folder if we are viewing that folder  </span>
-      <span class="ruby-ivar">@clippings</span> = <span class="ruby-ivar">@current_folder</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;uploaded_file_file_name desc&quot;</span>)  
+      <span class="ruby-comment">#show only files under this current folder  </span>
+      <span class="ruby-ivar">@clippings</span> = <span class="ruby-ivar">@current_folder</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;uploaded_file_file_name desc&quot;</span>) 
   
-      <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;home&quot;</span>  
+      <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;clippings_home&quot;</span>  
     <span class="ruby-keyword">else</span>  
       <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Don't be cheeky! Mind your own folders!&quot;</span>  
       <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_url</span>  
@@ -251,6 +271,48 @@
 
         
       </div><!-- browse-method -->
+
+    
+      <div id="method-i-clippings_home" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">clippings_home</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="clippings_home-source">
+            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">clippings_home</span>
+  <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Clippings Home&quot;</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">signed_in?</span>
+
+    <span class="ruby-comment">#show folders shared by others  </span>
+    <span class="ruby-ivar">@being_shared_folders</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">shared_folders_by_others</span>
+
+    <span class="ruby-comment">#show only root folders (which have no parent folders)  </span>
+    <span class="ruby-ivar">@folders</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">roots</span>
+
+    <span class="ruby-comment">#show only root files which has no &quot;folder_id&quot;  </span>
+    <span class="ruby-ivar">@clippings</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;folder_id is NULL&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;uploaded_file_file_name desc&quot;</span>) 
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- clippings_home-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- clippings_home-method -->
 
     
       <div id="method-i-contact" class="method-detail ">
@@ -269,9 +331,8 @@
 
           
           <div class="method-source-code" id="contact-source">
-            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">contact</span>
-  <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Contact&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- contact-source -->
           
@@ -299,9 +360,8 @@
 
           
           <div class="method-source-code" id="help-source">
-            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 25</span>
+            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">help</span>
-  <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Help&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- help-source -->
           
@@ -331,16 +391,9 @@
           <div class="method-source-code" id="home-source">
             <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 3</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">home</span>
-  <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Home&quot;</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">signed_in?</span>
-    <span class="ruby-ivar">@micropost</span> = <span class="ruby-constant">Micropost</span>.<span class="ruby-identifier">new</span>
-    <span class="ruby-ivar">@feed_items</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">feed</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
-
-    <span class="ruby-comment">#load current_user's folders  </span>
-    <span class="ruby-ivar">@folders</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name desc&quot;</span>)
-
-    <span class="ruby-comment">#added for clippings</span>
-    <span class="ruby-ivar">@clippings</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;uploaded_file_file_name desc&quot;</span>)
+    <span class="ruby-ivar">@micropost</span>  = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">microposts</span>.<span class="ruby-identifier">build</span>
+    <span class="ruby-ivar">@feed_items</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">feed</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- home-source -->
@@ -353,6 +406,62 @@
       </div><!-- home-method -->
 
     
+      <div id="method-i-share" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">share</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>this handles ajax request for inviting others to share folders</p>
+          
+
+          
+          <div class="method-source-code" id="share-source">
+            <pre><span class="ruby-comment"># File app/controllers/pages_controller.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">share</span>      
+    <span class="ruby-comment">#first, we need to separate the emails with the comma  </span>
+    <span class="ruby-identifier">email_addresses</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:email_addresses</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>)  
+      
+    <span class="ruby-identifier">email_addresses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">email_address</span><span class="ruby-operator">|</span>  
+      <span class="ruby-comment">#save the details in the ShareFolder table  </span>
+      <span class="ruby-ivar">@shared_folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">shared_folders</span>.<span class="ruby-identifier">new</span>  
+      <span class="ruby-ivar">@shared_folder</span>.<span class="ruby-identifier">folder_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>]  
+      <span class="ruby-ivar">@shared_folder</span>.<span class="ruby-identifier">shared_email</span> = <span class="ruby-identifier">email_address</span>  
+    
+      <span class="ruby-comment">#getting the shared user id right the owner the email has already signed up with ShareBox  </span>
+      <span class="ruby-comment">#if not, the field &quot;shared_user_id&quot; will be left nil for now.  </span>
+      <span class="ruby-identifier">shared_user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_email</span>(<span class="ruby-identifier">email_address</span>)  
+      <span class="ruby-ivar">@shared_folder</span>.<span class="ruby-identifier">shared_user_id</span> = <span class="ruby-identifier">shared_user</span>.<span class="ruby-identifier">id</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">shared_user</span>  
+    
+      <span class="ruby-ivar">@shared_folder</span>.<span class="ruby-identifier">message</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:message</span>]  
+      <span class="ruby-ivar">@shared_folder</span>.<span class="ruby-identifier">save</span>  
+    
+      <span class="ruby-comment">#now send email to the recipients  </span>
+      <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">invitation_to_share</span>(<span class="ruby-ivar">@shared_folder</span>).<span class="ruby-identifier">deliver</span>    
+
+<span class="ruby-keyword">end</span>  
+  
+    <span class="ruby-comment">#since this action is mainly for ajax (javascript request), we'll respond with js file back (refer to share.js.erb)  </span>
+    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>  
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">js</span> {  
+      }  
+    <span class="ruby-keyword">end</span>  
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- share-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- share-method -->
+
+    
     </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
@@ -362,7 +471,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>Module: SessionsHelper</title>
+<title>module SessionsHelper - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -64,15 +64,11 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-authenticate">#authenticate</a>
-    
     <li><a href="#method-i-current_user">#current_user</a>
     
     <li><a href="#method-i-current_user-3D">#current_user=</a>
     
     <li><a href="#method-i-current_user-3F">#current_user?</a>
-    
-    <li><a href="#method-i-deny_access">#deny_access</a>
     
     <li><a href="#method-i-redirect_back_or">#redirect_back_or</a>
     
@@ -81,6 +77,10 @@
     <li><a href="#method-i-sign_out">#sign_out</a>
     
     <li><a href="#method-i-signed_in-3F">#signed_in?</a>
+    
+    <li><a href="#method-i-signed_in_user">#signed_in_user</a>
+    
+    <li><a href="#method-i-store_location">#store_location</a>
     
   </ul>
 </nav>
@@ -137,6 +137,8 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./SharedFolder.html">SharedFolder</a>
+  
     <li><a href="./Tribe.html">Tribe</a>
   
     <li><a href="./TribesController.html">TribesController</a>
@@ -144,6 +146,8 @@
     <li><a href="./TribesHelper.html">TribesHelper</a>
   
     <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -180,36 +184,6 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-authenticate" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">authenticate</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="authenticate-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 24</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">authenticate</span>
-    <span class="ruby-identifier">deny_access</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">signed_in?</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- authenticate-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- authenticate-method -->
-
-    
       <div id="method-i-current_user" class="method-detail ">
         
         <div class="method-heading">
@@ -226,9 +200,9 @@
 
           
           <div class="method-source-code" id="current_user-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 11</span>
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">current_user</span>
-    <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">user_from_remember_token</span>
+  <span class="ruby-ivar">@current_user</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_remember_token</span>(<span class="ruby-identifier">cookies</span>[<span class="ruby-value">:remember_token</span>])
 <span class="ruby-keyword">end</span></pre>
           </div><!-- current_user-source -->
           
@@ -256,9 +230,9 @@
 
           
           <div class="method-source-code" id="current_user-3D-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">current_user=</span>(<span class="ruby-identifier">user</span>)
-    <span class="ruby-ivar">@current_user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-ivar">@current_user</span> = <span class="ruby-identifier">user</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- current_user-3D-source -->
           
@@ -286,9 +260,9 @@
 
           
           <div class="method-source-code" id="current_user-3F-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 38</span>
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">current_user?</span>(<span class="ruby-identifier">user</span>)
-    <span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">current_user</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- current_user-3F-source -->
           
@@ -298,37 +272,6 @@
 
         
       </div><!-- current_user-3F-method -->
-
-    
-      <div id="method-i-deny_access" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">deny_access</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="deny_access-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 28</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">deny_access</span>
-    <span class="ruby-identifier">store_location</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">signin_path</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Please sign in to access this page.&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- deny_access-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- deny_access-method -->
 
     
       <div id="method-i-redirect_back_or" class="method-detail ">
@@ -347,10 +290,10 @@
 
           
           <div class="method-source-code" id="redirect_back_or-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 33</span>
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">redirect_back_or</span>(<span class="ruby-identifier">default</span>)
   <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">session</span>[<span class="ruby-value">:return_to</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">default</span>)
-  <span class="ruby-identifier">clear_return_to</span>
+  <span class="ruby-identifier">session</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:return_to</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- redirect_back_or-source -->
           
@@ -378,10 +321,10 @@
 
           
           <div class="method-source-code" id="sign_in-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 2</span>
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 3</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">sign_in</span>(<span class="ruby-identifier">user</span>)
-    <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">permanent</span>.<span class="ruby-identifier">signed</span>[<span class="ruby-value">:remember_token</span>] = [<span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">user</span>.<span class="ruby-identifier">salt</span>]
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">permanent</span>[<span class="ruby-value">:remember_token</span>] = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">remember_token</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-identifier">user</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- sign_in-source -->
           
@@ -409,10 +352,10 @@
 
           
           <div class="method-source-code" id="sign_out-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 19</span>
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">sign_out</span>
-    <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:remember_token</span>)
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">current_user</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">current_user</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:remember_token</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- sign_out-source -->
           
@@ -440,9 +383,9 @@
 
           
           <div class="method-source-code" id="signed_in-3F-source">
-            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">signed_in?</span>
-    <span class="ruby-operator">!</span><span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">nil?</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- signed_in-3F-source -->
           
@@ -454,6 +397,69 @@
       </div><!-- signed_in-3F-method -->
 
     
+      <div id="method-i-signed_in_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">signed_in_user</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="signed_in_user-source">
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">signed_in_user</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">signed_in?</span>
+    <span class="ruby-identifier">store_location</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">signin_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Please sign in.&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- signed_in_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- signed_in_user-method -->
+
+    
+      <div id="method-i-store_location" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">store_location</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="store_location-source">
+            <pre><span class="ruby-comment"># File app/helpers/sessions_helper.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">store_location</span>
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_to</span>] = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">url</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- store_location-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- store_location-method -->
+
+    
     </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
@@ -463,7 +469,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

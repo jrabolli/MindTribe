@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>class Membership - Rails Application Documentation</title>
+<title>class SharedFolder - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>app/models/membership.rb
+    <li>app/models/shared_folder.rb
   </ul>
 </nav>
 
@@ -140,19 +140,22 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class Membership</h1>
+  <h1 class="class">class SharedFolder</h1>
 
   <div id="description" class="description">
     
 <h2 id="label-Schema+Information">Schema Information</h2>
 
-<p>Table name: memberships</p>
+<p>Table name: shared_folders</p>
 
-<pre>id         :integer(4)      not null, primary key
-user_id    :integer(4)
-tribe_id   :integer(4)
-created_at :datetime
-updated_at :datetime</pre>
+<pre>id             :integer(4)      not null, primary key
+user_id        :integer(4)
+shared_email   :string(255)
+shared_user_id :integer(4)
+folder_id      :integer(4)
+message        :string(255)
+created_at     :datetime
+updated_at     :datetime</pre>
 
   </div><!-- description -->
 

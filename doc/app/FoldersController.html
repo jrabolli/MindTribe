@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>Class: FoldersController</title>
+<title>class FoldersController - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -139,6 +139,8 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./SharedFolder.html">SharedFolder</a>
+  
     <li><a href="./Tribe.html">Tribe</a>
   
     <li><a href="./TribesController.html">TribesController</a>
@@ -146,6 +148,8 @@
     <li><a href="./TribesHelper.html">TribesHelper</a>
   
     <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -198,21 +202,30 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 51</span>
+            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-comment">#@folder = Folder.new(params[:folder])</span>
   <span class="ruby-ivar">@folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:folder</span>])  
 
-
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+  <span class="ruby-comment">#respond_to do |format|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">save</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@folder</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Folder was successfully created.'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@folder</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@folder</span> }
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;Successfully created folder.&quot;</span> <span class="ruby-comment">#(temp)  </span>
+
+      <span class="ruby-comment">#format.html { redirect_to @folder, notice: 'Folder was successfully created.' }</span>
+      <span class="ruby-comment">#format.json { render json: @folder, status: :created, location: @folder }</span>
+    
+      <span class="ruby-keyword">if</span> <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">parent</span> <span class="ruby-comment">#checking if we have a parent folder on this one  </span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">browse_path</span>(<span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">parent</span>)  <span class="ruby-comment">#then we redirect to the parent folder  </span>
+      <span class="ruby-keyword">else</span>  
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_url</span> <span class="ruby-comment">#if not, redirect back to home page (temp) </span>
+      <span class="ruby-keyword">end</span>  
+
+
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;new&quot;</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'new'</span>
+      <span class="ruby-comment">#format.html { render action: &quot;new&quot; }</span>
+      <span class="ruby-comment">#format.json { render json: @folder.errors, status: :unprocessable_entity }</span>
     <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
           
@@ -240,17 +253,22 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 87</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-comment">#@folder = Folder.find(params[:id])</span>
-  <span class="ruby-ivar">@folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])  
+            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 109</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>  
+ <span class="ruby-ivar">@folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])  
+ <span class="ruby-ivar">@parent_folder</span> = <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">parent</span> <span class="ruby-comment">#grabbing the parent folder  </span>
 
-  <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">destroy</span>
+ <span class="ruby-comment">#this will destroy the folder along with all the contents inside  </span>
+ <span class="ruby-comment">#sub folders will also be deleted too as well as all files inside  </span>
+ <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">destroy</span>  
+ <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;Successfully deleted the folder and all the contents inside.&quot;</span>  
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">folders_url</span> }
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:ok</span> }
-  <span class="ruby-keyword">end</span>
+ <span class="ruby-comment">#redirect to a relevant path depending on the parent folder  </span>
+ <span class="ruby-keyword">if</span> <span class="ruby-ivar">@parent_folder</span>  
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">browse_path</span>(<span class="ruby-ivar">@parent_folder</span>)  
+ <span class="ruby-keyword">else</span>  
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">clippingsHome_url</span>        
+ <span class="ruby-keyword">end</span>  
 <span class="ruby-keyword">end</span></pre>
           </div><!-- destroy-source -->
           
@@ -278,10 +296,10 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 43</span>
+            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
-  <span class="ruby-comment">#@folder = Folder.find(params[:id])</span>
-  <span class="ruby-ivar">@folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])  
+  <span class="ruby-ivar">@folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>])  
+  <span class="ruby-ivar">@current_folder</span> = <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">parent</span>    <span class="ruby-comment">#this is just for breadcrumbs </span>
 
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
@@ -310,15 +328,14 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-comment">#@folders = Folder.all</span>
   <span class="ruby-ivar">@folders</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># index.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@folders</span> }
-  <span class="ruby-keyword">end</span>
+ <span class="ruby-comment"># respond_to do |format|</span>
+ <span class="ruby-comment">#   format.html # index.html.erb</span>
+ <span class="ruby-comment">#   format.json { render json: @folders }</span>
+ <span class="ruby-comment"># end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -346,15 +363,24 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 32</span>
+            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-  <span class="ruby-comment">#@folder = Folder.new</span>
   <span class="ruby-ivar">@folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">new</span>  
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@folder</span> }
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#if there is &quot;folder_id&quot; param, we know that we are under a folder, thus, we will essentially create a subfolder  </span>
+ <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>] <span class="ruby-comment">#if we want to create a folder inside another folder  </span>
+     
+   <span class="ruby-comment">#we still need to set the @current_folder to make the buttons working fine  </span>
+   <span class="ruby-ivar">@current_folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>])  
+     
+   <span class="ruby-comment">#then we make sure the folder we are creating has a parent folder which is the @current_folder  </span>
+   <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">parent_id</span> = <span class="ruby-ivar">@current_folder</span>.<span class="ruby-identifier">id</span>  
+ <span class="ruby-keyword">end</span>  
+
+  <span class="ruby-comment">#respond_to do |format|</span>
+  <span class="ruby-comment">#  format.html # new.html.erb</span>
+  <span class="ruby-comment">#  format.json { render json: @folder }</span>
+  <span class="ruby-comment">#end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -384,14 +410,13 @@
           <div class="method-source-code" id="show-source">
             <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-comment">#@folder = Folder.find(params[:id])</span>
   <span class="ruby-ivar">@folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])  
 
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@folder</span> }
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#respond_to do |format|</span>
+  <span class="ruby-comment">#  format.html # show.html.erb</span>
+  <span class="ruby-comment">#  format.json { render json: @folder }</span>
+  <span class="ruby-comment">#end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           
@@ -419,21 +444,24 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 69</span>
+            <pre><span class="ruby-comment"># File app/controllers/folders_controller.rb, line 88</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
-  <span class="ruby-comment">#@folder = Folder.find(params[:id])</span>
   <span class="ruby-ivar">@folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])  
 
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+  <span class="ruby-comment">#respond_to do |format|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:folder</span>])
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@folder</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Folder was successfully updated.'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:ok</span> }
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@folder</span>, <span class="ruby-value">:notice</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Successfully updated folder.&quot;</span>
+
+      <span class="ruby-comment">#format.html { redirect_to @folder, notice: 'Folder was successfully updated.' }</span>
+      <span class="ruby-comment">#format.json { head :ok }</span>
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@folder</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'edit'</span>
+
+      <span class="ruby-comment">#format.html { render action: &quot;edit&quot; }</span>
+      <span class="ruby-comment">#format.json { render json: @folder.errors, status: :unprocessable_entity }</span>
     <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- update-source -->
           
@@ -454,7 +482,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

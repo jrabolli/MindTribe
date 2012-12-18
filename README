@@ -26,30 +26,8 @@ docs transfer
 care planReceive health maintenance reminders
 
 
---------
-admin?
---------
-administrator
-administrator@yahoo.com/administrator
-
-
---------
-todo
--------
-assigning admin and provider /UI ?
-pagination not quite right - index.html, custom.css issues
-delete tribes
-join tribes
-
-
-----------
-archetecture
----------
-TRIBES (create, join, nothing)
-
-
-# you'd have 3 models (user, group, group_user)
-# user - you already have but it has the following relationship
+# 3 models (user, group, group_user)
+# user - already have but it has the following relationship
 
 belongs_to :group
 
@@ -66,17 +44,9 @@ belongs_to :user
 belongs_to :group
 
 
-
-#this is off the top of my head and keep in mind that I'm pretty new.  good luck though
-# rails is fun :)
-
-
 Viewing a Folder Shared by Others
 
 
-
-<%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
-<%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
 
 
             <%= link_to "Share", "#", :folder_id => folder.id, :folder_name => folder.name %>  

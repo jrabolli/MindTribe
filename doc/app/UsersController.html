@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>Class: UsersController</title>
+<title>class UsersController - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -143,6 +143,8 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./SharedFolder.html">SharedFolder</a>
+  
     <li><a href="./Tribe.html">Tribe</a>
   
     <li><a href="./TribesController.html">TribesController</a>
@@ -150,6 +152,8 @@
     <li><a href="./TribesHelper.html">TribesHelper</a>
   
     <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -202,7 +206,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
     <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">save</span>
@@ -210,7 +214,6 @@
       <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;Welcome to MindTribe&quot;</span>
       <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@user</span>
     <span class="ruby-keyword">else</span>
-      <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Sign up&quot;</span>
       <span class="ruby-identifier">render</span> <span class="ruby-string">'new'</span>
     <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -240,11 +243,11 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 52</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
     <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">destroy</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;User destroyed.&quot;</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">users_path</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">users_url</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- destroy-source -->
           
@@ -272,11 +275,10 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 35</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
-    <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]) <span class="ruby-comment">#added to fix</span>
-    <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Edit user&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 32</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
+<span class="ruby-comment">#      @user = User.find(params[:id]) #added to fix</span>
+  <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
         </div>
@@ -303,11 +305,11 @@
 
           
           <div class="method-source-code" id="followers-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 65</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">followers</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Followers&quot;</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+  <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
   <span class="ruby-identifier">render</span> <span class="ruby-string">'show_follow'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- followers-source -->
@@ -336,11 +338,11 @@
 
           
           <div class="method-source-code" id="following-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 58</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">following</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Following&quot;</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">following</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+  <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followed_users</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
   <span class="ruby-identifier">render</span> <span class="ruby-string">'show_follow'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- following-source -->
@@ -371,8 +373,7 @@
           <div class="method-source-code" id="index-source">
             <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-    <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;All users&quot;</span>
-    <span class="ruby-ivar">@users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>], <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">8</span>, <span class="ruby-value">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'name ASC'</span>)
+  <span class="ruby-ivar">@users</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -400,10 +401,9 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;sign up&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -431,11 +431,10 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-ivar">@title</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">name</span>
-  <span class="ruby-ivar">@microposts</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">microposts</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+  <span class="ruby-ivar">@microposts</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">microposts</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           
@@ -463,18 +462,18 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 40</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
-    <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]) <span class="ruby-comment">#added to fix</span>
-    
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
-      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;Profile updated.&quot;</span>
-      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@user</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-ivar">@title</span> = <span class="ruby-string">&quot;Edit user&quot;</span>
-      <span class="ruby-identifier">render</span> <span class="ruby-string">'edit'</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span></pre>
+            <pre><span class="ruby-comment"># File app/controllers/users_controller.rb, line 36</span>
+ <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+<span class="ruby-comment">#     @user = User.find(params[:id]) #added to fix</span>
+     
+     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+       <span class="ruby-identifier">flash</span>[<span class="ruby-value">:success</span>] = <span class="ruby-string">&quot;Profile updated&quot;</span>
+       <span class="ruby-identifier">sign_in</span> <span class="ruby-ivar">@user</span>
+       <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@user</span>
+     <span class="ruby-keyword">else</span>
+       <span class="ruby-identifier">render</span> <span class="ruby-string">'edit'</span>
+     <span class="ruby-keyword">end</span>
+   <span class="ruby-keyword">end</span></pre>
           </div><!-- update-source -->
           
         </div>
@@ -494,7 +493,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

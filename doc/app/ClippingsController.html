@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-<title>Class: ClippingsController</title>
+<title>class ClippingsController - Rails Application Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -141,6 +141,8 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./SharedFolder.html">SharedFolder</a>
+  
     <li><a href="./Tribe.html">Tribe</a>
   
     <li><a href="./TribesController.html">TribesController</a>
@@ -148,6 +150,8 @@
     <li><a href="./TribesHelper.html">TribesHelper</a>
   
     <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -164,6 +168,8 @@
 
   <div id="description" class="description">
     
+<p>require ‘open-uri’</p>
+
   </div><!-- description -->
 
   
@@ -200,20 +206,20 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 50</span>
+            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-  <span class="ruby-comment">#@clipping = Clipping.new(params[:clipping])</span>
-  <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:clipping</span>])
+  <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:clipping</span>])  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">save</span>  
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;Successfully uploaded the file.&quot;</span>  
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">save</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@clipping</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Clipping was successfully created.'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@clipping</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@clipping</span> }
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;new&quot;</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">folder</span> <span class="ruby-comment">#checking if we have a parent folder for this file  </span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">browse_path</span>(<span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">folder</span>)  <span class="ruby-comment">#then we redirect to the parent folder  </span>
+    <span class="ruby-keyword">else</span>  
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">clippingsHome_url</span>  
+    <span class="ruby-keyword">end</span>        
+  <span class="ruby-keyword">else</span>  
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'new'</span>  
+  <span class="ruby-keyword">end</span>  
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
           
@@ -241,17 +247,19 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 85</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-comment">#@clipping = Clipping.find(params[:id])</span>
-  <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>  
+  <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])  
+  <span class="ruby-ivar">@parent_folder</span> = <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">folder</span> <span class="ruby-comment">#grabbing the parent folder before deleting the record  </span>
+  <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">destroy</span>  
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;Successfully deleted the clipping.&quot;</span>  
 
-  <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">destroy</span>
-
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">clippings_url</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Clipping was successfully destroyed.'</span> }
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:ok</span> }
-  <span class="ruby-keyword">end</span>
+<span class="ruby-comment">#redirect to a relevant path depending on the parent folder  </span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@parent_folder</span>  
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">browse_path</span>(<span class="ruby-ivar">@parent_folder</span>)  
+  <span class="ruby-keyword">else</span>  
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">clippingsHome_url</span>  
+  <span class="ruby-keyword">end</span>  
 <span class="ruby-keyword">end</span></pre>
           </div><!-- destroy-source -->
           
@@ -281,7 +289,6 @@
           <div class="method-source-code" id="edit-source">
             <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
-  <span class="ruby-comment">#@clipping = Clipping.find(params[:id])</span>
   <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
 <span class="ruby-keyword">end</span></pre>
@@ -306,21 +313,28 @@
 
         <div class="method-description">
           
-          <p>this action will let the users download the files (after a simple
-authorization check)</p>
+          
           
 
           
           <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 98</span>
+            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get</span>  
-    <span class="ruby-identifier">clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])  
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">clipping</span>  
-        <span class="ruby-identifier">send_file</span> <span class="ruby-identifier">clipping</span>.<span class="ruby-identifier">uploaded_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">clipping</span>.<span class="ruby-identifier">uploaded_file_content_type</span>  
-      <span class="ruby-keyword">else</span>  
-        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Don't be cheeky! Mind your own clippings!&quot;</span>  
-        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">clippings_path</span>  
-      <span class="ruby-keyword">end</span>  
+  <span class="ruby-identifier">clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])  
+  <span class="ruby-identifier">clipping</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Clipping</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_share_access?</span>(<span class="ruby-constant">Clipping</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">folder</span>)  
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">clipping</span>  
+      <span class="ruby-comment">#Parse the URL for special characters first before downloading  </span>
+      <span class="ruby-comment">#data = open(URI.parse(URI.encode(clipping.uploaded_file.url)))  </span>
+      <span class="ruby-comment">#data = open(clipping.uploaded_file.url)</span>
+      <span class="ruby-comment">#send_data data, :filename =&gt; clipping.uploaded_file_file_name  </span>
+      <span class="ruby-comment">#send_data data, :filename =&gt; clipping.file_name</span>
+      <span class="ruby-comment">#redirect_to clipping.uploaded_file.url</span>
+      <span class="ruby-identifier">send_file</span> <span class="ruby-identifier">clipping</span>.<span class="ruby-identifier">uploaded_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">clipping</span>.<span class="ruby-identifier">uploaded_file_content_type</span>
+    <span class="ruby-keyword">else</span>  
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;Don't be cheeky! Mind your own clippings!&quot;</span>  
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">clippings_path</span>  
+    <span class="ruby-keyword">end</span>  
 <span class="ruby-keyword">end</span></pre>
           </div><!-- get-source -->
           
@@ -348,15 +362,14 @@ authorization check)</p>
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 7</span>
+            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-comment">#@clippings = Clipping.all</span>
   <span class="ruby-ivar">@clippings</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># index.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@clippings</span> }
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#respond_to do |format|</span>
+  <span class="ruby-comment">#  format.html # index.html.erb</span>
+  <span class="ruby-comment">#  format.json { render json: @clippings }</span>
+  <span class="ruby-comment">#end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -386,13 +399,13 @@ authorization check)</p>
           <div class="method-source-code" id="new-source">
             <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-  <span class="ruby-comment">#@clipping = Clipping.new</span>
-  <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">new</span>
-
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># new.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@clipping</span> }
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">build</span>  
+  <span class="ruby-comment">#@clipping = current_user.clippings.new      </span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>] <span class="ruby-comment">#if we want to upload a file inside another folder  </span>
+    <span class="ruby-ivar">@current_folder</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">folders</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:folder_id</span>])  
+    <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">folder_id</span> = <span class="ruby-ivar">@current_folder</span>.<span class="ruby-identifier">id</span>  
+  <span class="ruby-keyword">end</span>      
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -420,15 +433,14 @@ authorization check)</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 19</span>
+            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-comment">#@clipping = Clipping.find(params[:id])</span>
   <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@clipping</span> }
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#respond_to do |format|</span>
+  <span class="ruby-comment">#  format.html # show.html.erb</span>
+  <span class="ruby-comment">#  format.json { render json: @clipping }</span>
+  <span class="ruby-comment">#end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           
@@ -456,21 +468,23 @@ authorization check)</p>
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 67</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
-  <span class="ruby-comment">#@clipping = Clipping.find(params[:id])</span>
-  <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+            <pre><span class="ruby-comment"># File app/controllers/clippings_controller.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span> <span class="ruby-comment">#this action changed after reviewing Codey github</span>
+  <span class="ruby-ivar">@clipping</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">clippings</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-comment">#@clipping = current_user.find(params[:id])</span>
 
 
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+  <span class="ruby-comment">#respond_to do |format|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:clipping</span>])
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@clipping</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">'Clipping was successfully updated.'</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:ok</span> }
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@clipping</span>, <span class="ruby-value">:notice</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Successfully updated clipping.&quot;</span>
+   <span class="ruby-comment">#   format.html { redirect_to @clipping, notice: 'Clipping was successfully updated.' }</span>
+   <span class="ruby-comment">#   format.json { head :ok }</span>
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;edit&quot;</span> }
-      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@clipping</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+      <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'edit'</span>
+   <span class="ruby-comment">#   format.html { render action: &quot;edit&quot; }</span>
+   <span class="ruby-comment">#   format.json { render json: @clipping.errors, status: :unprocessable_entity }</span>
     <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- update-source -->
           
@@ -491,7 +505,7 @@ authorization check)</p>
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 
