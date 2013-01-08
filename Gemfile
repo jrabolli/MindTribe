@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.9'
+#gem 'rails', '3.2.10'
+
 gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '3.0.1'
 gem "rake", "!= 0.9.0"

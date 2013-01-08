@@ -56,6 +56,6 @@ module MindTribe
     config.assets.version = '1.0'
     
     # Heroku config - it will suppress the initialization on precompile. JR
-    config.assets.initialize_on_precompile = false
+    #config.assets.initialize_on_precompile = false
   end
 end
