@@ -16,15 +16,6 @@ http://www.ama-assn.org/amednews/2012/04/30/bisa0430.htm
 
 http://digitalhealthaccelerator.com/
 
------------
-ideas
-----------
-scheduling appointments
-appointment reminder
-video conf
-docs transfer
-care planReceive health maintenance reminders
-
 
 # 3 models (user, group, group_user)
 # user - already have but it has the following relationship
@@ -42,6 +33,12 @@ has_many :users :through=>:group_users
 # (basically this is a join table) with the following relationships
 belongs_to :user
 belongs_to :group
+
+heroku:
+MrAdmin
+mradmin@yahoo.com
+yahoo4
+
 
 
 Viewing a Folder Shared by Others

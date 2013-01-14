@@ -22,7 +22,7 @@ class Clipping < ActiveRecord::Base
 
 	has_attached_file :uploaded_file,  
                :url => "/clippings/get/:id",  
-               :path => ":Rails_root/clippings/:id/:basename.:extension"  
+               :path => ":rails_root/clippings/:id/:basename.:extension"    
 
 
 	#set up "uploaded_file" field as attached_file (using Paperclip)  
