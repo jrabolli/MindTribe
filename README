@@ -43,10 +43,3 @@ yahoo4
 
 Viewing a Folder Shared by Others
 
-
-
-
-            <%= link_to "Share", "#", :folder_id => folder.id, :folder_name => folder.name %>  
-
-
-            , "jquery-ui-1.9.2.custom", "jquery-ui-1.9.2.custom.min", "jquery-1.8.3"
