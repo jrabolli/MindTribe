@@ -1,5 +1,14 @@
 MindTribe::Application.routes.draw do
 
+  resources :problems
+
+
+  resources :goals
+
+
+  resources :medications
+
+
   resources :folders
   match "browse/:folder_id" => "pages#browse", :as => "browse"  
   

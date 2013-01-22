@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121215055645) do
+ActiveRecord::Schema.define(:version => 20130122050501) do
 
   create_table "clippings", :force => true do |t|
     t.integer  "user_id"
@@ -38,6 +38,32 @@ ActiveRecord::Schema.define(:version => 20121215055645) do
   add_index "folders", ["parent_id"], :name => "index_folders_on_parent_id"
   add_index "folders", ["user_id"], :name => "index_folders_on_user_id"
 
+  create_table "goals", :force => true do |t|
+    t.string   "goal"
+    t.text     "action"
+    t.string   "person_responsible"
+    t.text     "expected_outcome"
+    t.date     "target_date"
+    t.text     "results"
+    t.integer  "user_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "goals", ["user_id"], :name => "index_goals_on_user_id"
+
+  create_table "medications", :force => true do |t|
+    t.string   "name"
+    t.string   "problem"
+    t.string   "dosage"
+    t.string   "instructions"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "medications", ["user_id"], :name => "index_medications_on_user_id"
+
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "tribe_id"
@@ -53,6 +79,17 @@ ActiveRecord::Schema.define(:version => 20121215055645) do
   end
 
   add_index "microposts", ["user_id", "created_at"], :name => "index_microposts_on_user_id_and_created_at"
+
+  create_table "problems", :force => true do |t|
+    t.string   "problem"
+    t.string   "code"
+    t.text     "notes"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "problems", ["user_id"], :name => "index_problems_on_user_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

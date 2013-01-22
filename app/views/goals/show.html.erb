@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Goal:</b>
+  <%= @goal.goal %>
+</p>
+
+<p>
+  <b>Action:</b>
+  <%= @goal.action %>
+</p>
+
+<p>
+  <b>Person responsible:</b>
+  <%= @goal.person_responsible %>
+</p>
+
+<p>
+  <b>Expected outcome:</b>
+  <%= @goal.expected_outcome %>
+</p>
+
+<p>
+  <b>Target date:</b>
+  <%= @goal.target_date %>
+</p>
+
+<p>
+  <b>Results:</b>
+  <%= @goal.results %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @goal.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_goal_path(@goal) %> |
+<%= link_to 'Back', goals_path %>
