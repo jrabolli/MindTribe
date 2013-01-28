@@ -13,4 +13,6 @@
 
 class Problem < ActiveRecord::Base
   attr_accessible :code, :notes, :problem, :user_id
+  belongs_to :user
+  validates :problem, presence: true
 end

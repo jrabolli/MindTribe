@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Barrier:</b>
+  <%= @barrier.barrier %>
+</p>
+
+<p>
+  <b>Intervention:</b>
+  <%= @barrier.intervention %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @barrier.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_barrier_path(@barrier) %> |
+<%= link_to 'Back', barriers_path %>

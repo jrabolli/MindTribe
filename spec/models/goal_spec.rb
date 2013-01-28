@@ -4,7 +4,6 @@
 #
 #  id                 :integer(4)      not null, primary key
 #  goal               :string(255)
-#  action             :text
 #  person_responsible :string(255)
 #  expected_outcome   :text
 #  target_date        :date

@@ -1,0 +1,33 @@
+<h1>Listing actions</h1>
+
+<table>
+  <tr>
+    <th>Action</th>
+    <th>Person responsible</th>
+    <th>User</th>
+    <th>Goal</th>
+    <th>Target date</th>
+    <th>Result</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @actions.each do |action| %>
+  <tr>
+    <td><%= action.action %></td>
+    <td><%= action.person_responsible %></td>
+    <td><%= action.user_id %></td>
+    <td><%= action.goal_id %></td>
+    <td><%= action.target_date %></td>
+    <td><%= action.result %></td>
+    <td><%= link_to 'Show', action %></td>
+    <td><%= link_to 'Edit', edit_action_path(action) %></td>
+    <td><%= link_to 'Destroy', action, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Action', new_action_path %>

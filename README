@@ -44,3 +44,10 @@ yahoo4
 Viewing a Folder Shared by Others
 
   <%= will_paginate @feed_items %>
+      
+
+      <%= link_to "MindTribe", root_path, id: "logo" %>
+      .brand
+
+
+        <a href="#" class="brand" title="Tribal Health">&nbsp;</a>

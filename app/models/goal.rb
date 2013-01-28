@@ -4,7 +4,6 @@
 #
 #  id                 :integer(4)      not null, primary key
 #  goal               :string(255)
-#  action             :text
 #  person_responsible :string(255)
 #  expected_outcome   :text
 #  target_date        :date
@@ -15,5 +14,8 @@
 #
 
 class Goal < ActiveRecord::Base
-  attr_accessible :action, :expected_outcome, :goal, :person_responsible, :results, :target_date, :user_id
+  attr_accessible :expected_outcome, :goal, :results, :target_date, :user_id
+  belongs_to :user
+  has_many :actions
+  validates :goal, presence: true
 end

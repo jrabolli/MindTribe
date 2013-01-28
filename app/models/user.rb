@@ -52,6 +52,11 @@ class User < ActiveRecord::Base
   end
 
 
+has_many :medications
+has_many :problems
+has_many :goals
+has_many :barriers
+
 
 
 

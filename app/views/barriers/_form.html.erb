@@ -1,0 +1,29 @@
+<%= form_for(@barrier) do |f| %>
+  <% if @barrier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@barrier.errors.count, "error") %> prohibited this barrier from being saved:</h2>
+
+      <ul>
+      <% @barrier.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :barrier %><br />
+    <%= f.text_area :barrier %>
+  </div>
+  <div class="field">
+    <%= f.label :intervention %><br />
+    <%= f.text_area :intervention %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

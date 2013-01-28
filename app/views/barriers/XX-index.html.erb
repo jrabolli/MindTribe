@@ -1,0 +1,27 @@
+<h1>Listing barriers</h1>
+
+<table>
+  <tr>
+    <th>Barrier</th>
+    <th>Intervention</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @barriers.each do |barrier| %>
+  <tr>
+    <td><%= barrier.barrier %></td>
+    <td><%= barrier.intervention %></td>
+    <td><%= barrier.user_id %></td>
+    <td><%= link_to 'Show', barrier %></td>
+    <td><%= link_to 'Edit', edit_barrier_path(barrier) %></td>
+    <td><%= link_to 'Destroy', barrier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Barrier', new_barrier_path %>

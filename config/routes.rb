@@ -1,5 +1,11 @@
 MindTribe::Application.routes.draw do
 
+  resources :actions
+
+
+  resources :barriers
+
+
   resources :problems
 
 
@@ -31,7 +37,8 @@ MindTribe::Application.routes.draw do
 
   match '/clippingsHome', :to => 'pages#clippings_home'
 
-  
+    match '/careplan', :to => 'pages#careplan'
+
 
   resources :tribes
   match '/createtribe', :to => 'tribes#new'

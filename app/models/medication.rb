@@ -14,4 +14,6 @@
 
 class Medication < ActiveRecord::Base
   attr_accessible :dosage, :instructions, :name, :problem, :user_id
+  belongs_to :user
+  validates :name, presence: true
 end

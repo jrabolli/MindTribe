@@ -32,6 +32,21 @@ class PagesController < ApplicationController
     end
   end
 
+  
+  def careplan
+        @title = "Care Plan"
+        
+        @medications = Medication.all
+        @problems = Problem.all
+        @goals = Goal.all
+        @barriers = Barrier.all
+        #change to 'flagged posts only, not all'
+        @feed_items = current_user.feed.paginate(page: params[:page], :per_page => 10)
+
+
+
+
+  end
 
 
   #this action is for viewing folders  

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Action:</b>
+  <%= @action.action %>
+</p>
+
+<p>
+  <b>Person responsible:</b>
+  <%= @action.person_responsible %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @action.user_id %>
+</p>
+
+<p>
+  <b>Goal:</b>
+  <%= @action.goal_id %>
+</p>
+
+<p>
+  <b>Target date:</b>
+  <%= @action.target_date %>
+</p>
+
+<p>
+  <b>Result:</b>
+  <%= @action.result %>
+</p>
+
+
+<%= link_to 'Edit', edit_action_path(@action) %> |
+<%= link_to 'Back', actions_path %>
