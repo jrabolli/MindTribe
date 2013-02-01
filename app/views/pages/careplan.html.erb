@@ -7,7 +7,7 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span2">
-        <h5>Tagged Posts</h5>
+        <h5>Tagged Updates</h5>
         <%= render 'shared/feed' %>
     </div>
 
@@ -39,12 +39,12 @@
     <td><%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
-</table>
+</table> 
+
 
 <br />
 
 <%= link_to 'New Problem', new_problem_path %>
-
 
 
 <h4>Medications</h4>
@@ -93,6 +93,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @goals.each do |goal| %>
@@ -106,6 +107,7 @@
     <td><%= link_to 'Show', goal %></td>
     <td><%= link_to 'Edit', edit_goal_path(goal) %></td>
     <td><%= link_to 'Destroy', goal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Actions', :controller => :actions, :action => :index %></td>
   </tr>
 <% end %>
 </table>
