@@ -14,16 +14,23 @@ class Tribe < ActiveRecord::Base
 attr_accessible :name, :description
 
 validates :name, :presence   => true,
-		  :length   => { :maximum => 50 },
-		  :uniqueness => {:case_sensitive => false }
+          :length   => { :maximum => 50 },
+          :uniqueness => {:case_sensitive => false }
 
+belongs_to :owner, :class_name => "User"
 
-#added for tribes??
 has_many :memberships
-has_many :users, :through => :memberships
-#####
+has_many :members,
+         :through => :memberships,
+         :source => :user
 
+has_many :active_members, 
+         :through => :memberships,
+         :source => :user,
+         :conditions => "memberships.confirmed = 't'"
 
-
-
+has_many :pending_members,
+         :through => :memberships,
+         :source => :user,
+         :conditions => "memberships.confirmed = 'f'"
 end

@@ -34,6 +34,9 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
+  #tribes
+  has_many :tribes, :foreign_key => "owner_id"
+  has_many :memberships
 
   def following?(other_user)
     relationships.find_by_followed_id(other_user.id)
@@ -46,7 +49,7 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     relationships.find_by_followed_id(other_user.id).destroy
   end
-  
+
   def feed
     Micropost.from_users_followed_by(self)
   end
@@ -56,9 +59,6 @@ has_many :medications
 has_many :problems
 has_many :goals
 has_many :barriers
-
-
-
 
 has_many :clippings
 has_many :folders
@@ -73,7 +73,7 @@ has_many :folders
   has_many :shared_folders_by_others, :through => :being_shared_folders, :source => :folder  
 
   #added for tribes??
-  belongs_to :tribe
+ # belongs_to :tribe
   ###
 
   after_create :check_and_assign_shared_ids_to_shared_folders  

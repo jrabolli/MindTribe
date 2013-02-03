@@ -1,5 +1,5 @@
 module SessionsHelper
-  
+
   def sign_in(user)
     cookies.permanent[:remember_token] = user.remember_token
     self.current_user = user
@@ -15,6 +15,10 @@ module SessionsHelper
 
   def current_user
     @current_user ||= User.find_by_remember_token(cookies[:remember_token])
+  end
+
+  def current_tribe
+    @current_tribe ||= current_user.tribes.first
   end
 
   def current_user?(user)
@@ -41,6 +45,4 @@ module SessionsHelper
   def store_location
     session[:return_to] = request.url
   end
-      
-    
 end
